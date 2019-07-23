@@ -1,0 +1,21 @@
+{
+  "data": [
+    { "title": "Technology" },
+    { "title": "Virtual Reality" },
+    { "title": "Artificial Intelligence" },
+    { "title": "Robotics" },
+    { "title": "Biology & Medicine" },
+    { "title": "Business & Politics" },
+    { "title": "Internet" },
+    { "title": "Energy" },
+    { "title": "Environment" },
+    { "title": "Home" },
+    { "title": "Leisure" },
+    { "title": "Military" },
+    { "title": "Nanotechnology" },
+    { "title": "Physics" },
+    { "title": "Society" },
+    { "title": "Space" },
+    { "title": "Transport" }
+  ]
+}

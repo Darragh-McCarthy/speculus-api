@@ -1,0 +1,60 @@
+{
+  "data": [
+    {
+      "title": "Turkey will join the EU",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "The UK will leave the EU with \"No Deal\" in October 2019",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "By 2050 most babies will be conceived in a laboratory environment",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "Humans will be responsible for the largest mass extinction event in history",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "There will be a female president in the United States by 2030",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "The acting profession will go into rapid decline within the next decade",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "Pervasive surveillance will be the norm in 10 years time",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "A Universal Basic Income will be established in the western world within 20 years",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "Tesla will achieve level 5 autonomy by 2022",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "Electric will constitute 50% of all vehicles on the road in 2030",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "Average commute times will increase when autonomous transportation networks become established",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "Artificial organ transplants will become a commodity by 2040",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "The tourism industry will double in within a decade",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    },
+    {
+      "title": "Most public transportation will be free in 2040",
+      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+    }
+  ]
+}
