@@ -2,59 +2,82 @@
   "data": [
     {
       "title": "Turkey will join the EU",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [{ "title": "Turkey" }, { "title": "European Union" }]
     },
     {
       "title": "The UK will leave the EU with \"No Deal\" in October 2019",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [
+        { "title": "United Kingdom" },
+        { "title": "European Union" },
+        { "title": "Brexit" }
+      ]
     },
     {
       "title": "By 2050 most babies will be conceived in a laboratory environment",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [
+        { "title": "Technology" },
+        { "title": "Babies" },
+        { "title": "2050" }
+      ]
     },
     {
       "title": "Humans will be responsible for the largest mass extinction event in history",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [{ "title": "Extinction" }, { "title": "Humanity" }]
     },
     {
       "title": "There will be a female president in the United States by 2030",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [
+        { "title": "United States President" },
+        { "title": "2030" },
+        { "title": "Female President" }
+      ]
     },
     {
       "title": "The acting profession will go into rapid decline within the next decade",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [{ "title": "Acting profession" }]
     },
     {
       "title": "Pervasive surveillance will be the norm in 10 years time",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [{ "title": "Technology" }, { "title": "Surveillance" }]
     },
     {
       "title": "A Universal Basic Income will be established in the western world within 20 years",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [
+        { "title": "Universal Basic Income" },
+        { "title": "Western World" }
+      ]
     },
     {
       "title": "Tesla will achieve level 5 autonomy by 2022",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [
+        { "title": "Tesla" },
+        { "title": "2022" },
+        { "title": "Level 5 autonomy" }
+      ]
     },
     {
       "title": "Electric will constitute 50% of all vehicles on the road in 2030",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [
+        { "title": "Electric" },
+        { "title": "2030" },
+        { "title": "Electric vehicles" }
+      ]
     },
     {
       "title": "Average commute times will increase when autonomous transportation networks become established",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [{ "title": "Commutes" }, { "title": "Autonomous vehivles" }]
     },
     {
       "title": "Artificial organ transplants will become a commodity by 2040",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [{ "title": "Organ transplants" }, { "title": "Medicine" }]
     },
     {
       "title": "The tourism industry will double in within a decade",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [{ "title": "Tourism industry" }]
     },
     {
       "title": "Most public transportation will be free in 2040",
-      "topics": [{ "title": "Technology" }, { "title": "Politics" }]
+      "topics": [{ "title": "Public transportation" }, { "title": "2040" }]
     }
   ]
 }
