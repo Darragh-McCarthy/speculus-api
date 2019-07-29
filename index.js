@@ -77,10 +77,17 @@ app.get("/populate-mock-data", authMiddleware, async (req, res) => {
       .map(e => e.topics)
       .reduce((a, b) => {
         b.forEach(eachTopic => {
-          if (a.indexOf(eachTopic) === -1) {
+          if (eachTopic === "European Union") {
+            console.log("European Union");
+            console.log(a.indexOf(eachTopic) === -1);
+            console.log(" ");
+          }
+          if (!a.find(e => e.title === eachTopic.title)) {
             a.push(eachTopic);
           }
         });
+        console.log(a);
+        console.log(" ");
         return a;
       }, [])
       .map(e => Topic.create(e))
@@ -111,8 +118,11 @@ app.get("/predictions", authMiddleware, async (req, res) => {
   } else {
     promise = Prediction.find({});
   }
-  const predictions = await promise.populate("topics").exec();
-  await new Promise(resolve => setTimeout(() => resolve(), 300));
+  const predictions = await promise
+    .sort("-createdAt")
+    .populate("topics")
+    .exec();
+  await new Promise(resolve => setTimeout(() => resolve(), 500));
   res.json({ data: predictions });
 });
 
@@ -125,9 +135,29 @@ app.post("/predictions", authMiddleware, async (req, res) => {
   }).then(() => res.json({}), () => res.status(404).json({ failed: true }));
 });
 
-app.get("/topics", authMiddleware, (req, res) => {
+app.get("/topics", authMiddleware, async (req, res) => {
+  let promise;
+  if (req.query.query) {
+    promise = Topic.find({ title: new RegExp(req.query.query, "ig") });
+  } else {
+    promise = Topic.find({});
+  }
+
+  const sorted = await promise.sort({ title: 1 }).exec();
+
   // const predictions = await Prediction.find({});
-  res.send(topicsResponse);
+
+  /*
+  this.allTopics.filter(eachTopic => {
+          return (
+            eachTopic.toLowerCase().indexOf(query.toLowerCase()) > -1 &&
+            !this.selectedTopics.includes(eachTopic) &&
+            eachTopic !== this.inputRef.nativeElement.value
+          );
+        });
+  */
+
+  res.send({ data: sorted });
 });
 
 app.post("/login", (req, res) => {
