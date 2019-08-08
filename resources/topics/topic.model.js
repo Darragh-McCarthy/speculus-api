@@ -1,0 +1,22 @@
+const mongoose = require("mongoose");
+
+const topicSchema = mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true
+    },
+    includeInDirectory: {
+      type: Boolean
+    }
+  },
+  {
+    timestamps: true
+  }
+);
+
+const TopicModel = mongoose.model("Topic", topicSchema);
+
+module.exports = {
+  TopicModel
+};
