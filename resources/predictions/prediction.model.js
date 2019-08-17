@@ -26,6 +26,9 @@ const predictionSchema = mongoose.Schema(
     ],
     comments: [
       {
+        rating: {
+          type: Number
+        },
         text: {
           type: String,
           required: true
@@ -52,7 +55,7 @@ const predictionSchema = mongoose.Schema(
         }
       }
     ],
-    sevenPointLikelihoodRatings: [
+    ratings: [
       {
         rating: {
           type: Number,

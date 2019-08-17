@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { PredictionModel } = require("../predictions/prediction.model");
+const { addComment } = require("../predictions/predictions.service");
 const { UserModel } = require("../users/user.model");
 const { TopicModel } = require("../topics/topic.model");
 const faker = require("faker");
@@ -43,6 +44,7 @@ mocksRouter.get("/populate", async (req, res) => {
     )
   );
 
+  // create topics
   await Promise.all(
     predictionsResponse.data
       .map(e => e.topics)
@@ -70,19 +72,7 @@ mocksRouter.get("/populate", async (req, res) => {
   });
 
   predictionsResponse.data.forEach(eachPrediction => {
-    eachPrediction.comments = mockComments
-      .slice(0, Math.floor(Math.random() * mockComments.length))
-      .map(title => {
-        const author = users[Math.floor(Math.random() * users.length)];
-        return {
-          text: title,
-          author: {
-            id: author._id,
-            avatarUrl: author.avatarUrl,
-            fullName: author.fullName
-          }
-        };
-      });
+    eachPrediction.comments = [];
   });
 
   predictionsResponse.data.forEach(e => {
@@ -100,7 +90,7 @@ mocksRouter.get("/populate", async (req, res) => {
         let authorData;
         if (author) {
           authorData = {
-            id: author && author.id,
+            id: author,
             avatarUrl: author && author.avatarUrl,
             fullName: author && author.fullName
           };
@@ -116,11 +106,26 @@ mocksRouter.get("/populate", async (req, res) => {
 
   predictionsResponse.data.forEach(e => {
     const ratings = generateMockRatings();
-    e.sevenPointLikelihoodRatings = ratings;
+    e.ratings = ratings;
   });
 
-  await PredictionModel.create(predictionsResponse.data);
-  await PredictionModel.find({});
+  const predictions = await PredictionModel.create(predictionsResponse.data);
+  for (let eachPrediction of predictions) {
+    const comments = mockComments.slice(
+      0,
+      Math.floor(Math.random() * mockComments.length)
+    );
+    for (let eachComment of comments) {
+      const author = users[Math.floor(Math.random() * users.length)];
+      await addComment(
+        eachPrediction._id,
+        eachComment,
+        author._id,
+        author.avatarUrl,
+        author.fullName
+      );
+    }
+  }
   return res.json({});
 });
 

@@ -1,7 +1,25 @@
 const { Router } = require("express");
 const { PredictionModel } = require("./prediction.model");
+const { addComment, updateRating } = require("./predictions.service");
 
 const router = new Router();
+
+function convertPredictionsToBrowserFormat(predictions, userId) {
+  return {
+    predictions: predictions.map(eachPrediction => {
+      const ratingByLoggedInUser = eachPrediction.ratings.find(e =>
+        userId.equals(e.author.id)
+      );
+      const ratingsByOtherUsers = eachPrediction.ratings.filter(
+        e => e != ratingByLoggedInUser
+      );
+      eachPrediction.ratingByLoggedInUser = ratingByLoggedInUser;
+      eachPrediction.ratingsByOtherUsers = ratingsByOtherUsers;
+      delete eachPrediction.ratings;
+      return eachPrediction;
+    })
+  };
+}
 
 router.get("/", async (req, res) => {
   let promise;
@@ -11,61 +29,64 @@ router.get("/", async (req, res) => {
     promise = PredictionModel.find({});
   }
   const predictions = await promise.sort("-createdAt").exec();
+
   await new Promise(resolve => setTimeout(() => resolve(), 500));
-  res.json({ data: predictions });
+  res.json({
+    data: convertPredictionsToBrowserFormat(
+      JSON.parse(JSON.stringify(predictions)),
+      res.locals.userId
+    )
+  });
 });
 
 router.post("/:id/rate", async (req, res) => {
-  try {
-    await PredictionModel.findByIdAndUpdate(
-      req.params.id,
-      {
-        $pull: {
-          sevenPointLikelihoodRatings: { "author.id": res.locals.userId }
-        }
-      },
-      { useFindAndModify: false }
-    );
-  } catch (e) {
-    console.log(e);
-  }
-  await PredictionModel.findByIdAndUpdate(
+  // try {
+  //   await PredictionModel.findByIdAndUpdate(
+  //     req.params.id,
+  //     {
+  //       $pull: {
+  //         ratings: { "author.id": res.locals.userId }
+  //       }
+  //     },
+  //     { useFindAndModify: false }
+  //   );
+  // } catch (e) {
+  //   console.log(e);
+  // }
+  // await PredictionModel.findByIdAndUpdate(
+  //   req.params.id,
+  //   {
+  //     $push: {
+  //       ratings: {
+  //         rating: req.body.sevenStarLikelihood,
+  //         author: {
+  //           id: res.locals.userId,
+  //           avatarUrl: res.locals.avatarUrl,
+  //           fullName: res.locals.fullName
+  //         },
+  //         createdAt: Date.now()
+  //       }
+  //     }
+  //   },
+  //   { upsert: true, useFindAndModify: false }
+  // );
+  await updateRating(
     req.params.id,
-    {
-      $push: {
-        sevenPointLikelihoodRatings: {
-          rating: req.body.sevenStarLikelihood,
-          author: {
-            id: res.locals.userId,
-            avatarUrl: res.locals.avatarUrl,
-            fullName: res.locals.fullName
-          },
-          createdAt: Date.now()
-        }
-      }
-    },
-    { upsert: true, useFindAndModify: false }
+    req.body.sevenStarLikelihood,
+    res.locals.userId,
+    res.locals.avatarUrl,
+    res.locals.fullName
   );
   res.json({});
 });
 
 router.post("/:id/comment", async (req, res) => {
-  await PredictionModel.findByIdAndUpdate(
+  await addComment(
     req.params.id,
-    {
-      $push: {
-        comments: {
-          text: req.body.text,
-          author: {
-            id: res.locals.userId,
-            avatarUrl: res.locals.avatarUrl,
-            fullName: res.locals.fullName
-          },
-          createdAt: Date.now()
-        }
-      }
-    },
-    { upsert: true, useFindAndModify: false }
+    req.body.text,
+    res.locals.userId,
+    res.locals.avatarUrl,
+    res.locals.fullName
   );
   res.json({});
 });

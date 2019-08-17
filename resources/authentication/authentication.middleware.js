@@ -1,4 +1,5 @@
 const authenticationService = require("./authentication.service");
+var mongoose = require("mongoose");
 
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.get("Authorization");
@@ -8,7 +9,8 @@ const authMiddleware = async (req, res, next) => {
     try {
       await authenticationService.verify(token);
       const data = await authenticationService.decode(token);
-      res.locals.userId = data.userId;
+      res.locals.userId = mongoose.Types.ObjectId(data.userId);
+
       res.locals.avatarUrl = data.avatarUrl;
       res.locals.fullName = data.fullName;
       next();
