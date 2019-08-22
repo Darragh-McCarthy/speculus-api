@@ -1,20 +1,25 @@
 const { Router } = require("express");
 const { PredictionModel } = require("../predictions/prediction.model");
-const { addComment } = require("../predictions/predictions.service");
+const { makePrediction } = require("../predictions/predictions.service");
 const { UserModel } = require("../users/user.model");
 const { TopicModel } = require("../topics/topic.model");
+const { RatingModel } = require("../ratings/rating.model");
+const { CommentModel } = require("../comments/comment.model");
+const { addComment } = require("../comments/comments.service");
+
 const faker = require("faker");
 
 const mocksRouter = new Router();
 
 const clearMockData = async () => {
-  await TopicModel.deleteMany();
-  await PredictionModel.deleteMany();
+  await CommentModel.deleteMany({});
+  await RatingModel.deleteMany({});
+  await TopicModel.deleteMany({});
+  await PredictionModel.deleteMany({});
   await UserModel.deleteMany({});
 };
 
 const mockUserData = [
-  { email: "darraghjames@gmail.com", fullName: "Darragh McCarthy" },
   { email: "johndoe@gmail.com", fullName: "John Doe" },
   { email: "emily@gmail.com", fullName: "Emily Crowley" },
   { email: "arnold@gmail.com", fullName: "Arnold Swartzeneiger" },
@@ -31,9 +36,9 @@ const mockComments = [
 
 mocksRouter.get("/populate", async (req, res) => {
   await clearMockData();
-  const predictionsResponse = JSON.parse(
-    JSON.stringify(require("./mocks.json"))
-  );
+  const mockPredictions = JSON.parse(JSON.stringify(require("./mocks.json")))
+    .data; //.slice(0, 3);
+
   const users = await Promise.all(
     mockUserData.map(e =>
       UserModel.create({
@@ -44,9 +49,15 @@ mocksRouter.get("/populate", async (req, res) => {
     )
   );
 
+  await UserModel.create({
+    email: { primary: "darraghjames@gmail.com" },
+    fullName: "Darragh McCarthy",
+    avatarUrl: faker.image.avatar()
+  });
+
   // create topics
   await Promise.all(
-    predictionsResponse.data
+    mockPredictions
       .map(e => e.topics)
       .reduce((a, b) => {
         b.forEach(eachTopic => {
@@ -60,57 +71,31 @@ mocksRouter.get("/populate", async (req, res) => {
         TopicModel.create({
           author: users[Math.floor(Math.random() * users.length)],
           title: e.title.trim(),
-          pendingEditorialReview: false
+          pendingEditorialReview: false,
+          includeInDirectory: true
         })
       )
   );
 
-  predictionsResponse.data.forEach(eachPrediction => {
+  mockPredictions.forEach(eachPrediction => {
     eachPrediction.topics.forEach(eachTopic => {
       eachTopic.addedBy = users[Math.floor(Math.random() * users.length)];
     });
   });
 
-  predictionsResponse.data.forEach(eachPrediction => {
-    eachPrediction.comments = [];
-  });
-
-  predictionsResponse.data.forEach(e => {
-    e.author = users[Math.floor(Math.random() * users.length)];
-  });
-
-  function generateMockRatings() {
-    const usersCopy = users.slice();
-    return new Array(Math.floor(Math.random() * 5))
-      .fill(0)
-      .map(() => {
-        const i = Math.floor(Math.random() * usersCopy.length);
-        const author = usersCopy.splice(i, 1)[0];
-
-        let authorData;
-        if (author) {
-          authorData = {
-            id: author,
-            avatarUrl: author && author.avatarUrl,
-            fullName: author && author.fullName
-          };
-        }
-
-        return {
-          rating: Math.ceil(Math.random() * 7),
-          author: authorData
-        };
-      })
-      .filter(e => e.author);
-  }
-
-  predictionsResponse.data.forEach(e => {
-    const ratings = generateMockRatings();
-    e.ratings = ratings;
-  });
-
-  const predictions = await PredictionModel.create(predictionsResponse.data);
-  for (let eachPrediction of predictions) {
+  for (let mockPrediction of mockPredictions) {
+    const author = users[Math.floor(Math.random() * users.length)];
+    const { prediction } = await makePrediction(
+      {
+        topics: mockPrediction.topics,
+        title: mockPrediction.title
+      },
+      {
+        userId: author,
+        avatarUrl: author.avatarUrl,
+        fullName: author.fullName
+      }
+    );
     const comments = mockComments.slice(
       0,
       Math.floor(Math.random() * mockComments.length)
@@ -118,14 +103,16 @@ mocksRouter.get("/populate", async (req, res) => {
     for (let eachComment of comments) {
       const author = users[Math.floor(Math.random() * users.length)];
       await addComment(
-        eachPrediction._id,
+        prediction._id,
         eachComment,
         author._id,
         author.avatarUrl,
-        author.fullName
+        author.fullName,
+        Math.ceil(Math.random() * 7)
       );
     }
   }
+
   return res.json({});
 });
 

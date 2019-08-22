@@ -6,10 +6,24 @@ const predictionSchema = mongoose.Schema(
       type: String,
       required: true
     },
-    author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+    titleLowercase: {
+      type: String,
       required: true
+    },
+    author: {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+      },
+      fullName: {
+        type: String,
+        required: true
+      },
+      avatarUrl: {
+        type: String,
+        required: true
+      }
     },
     topics: [
       {
@@ -24,74 +38,7 @@ const predictionSchema = mongoose.Schema(
         }
       }
     ],
-    comments: [
-      {
-        rating: {
-          type: Number
-        },
-        text: {
-          type: String,
-          required: true
-        },
-        author: {
-          id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            required: true
-          },
-          avatarUrl: {
-            type: String,
-            required: true
-          },
-          fullName: {
-            type: String,
-            required: true
-          }
-        },
-        createdAt: {
-          type: Date,
-          required: true,
-          default: Date.now
-        }
-      }
-    ],
-    ratings: [
-      {
-        rating: {
-          type: Number,
-          enum: [
-            1, // definitely not
-            2, // very unlikely
-            3, // unlikely
-            4, // as likely as not
-            5, // likely
-            6, // very likely
-            7 // definitely
-          ],
-          required: true
-        },
-        author: {
-          id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            required: true
-          },
-          avatarUrl: {
-            type: String,
-            required: true
-          },
-          fullName: {
-            type: String,
-            required: true
-          }
-        },
-        createdAt: {
-          type: Date,
-          required: true,
-          default: Date.now
-        }
-      }
-    ]
+    commentsCount: { type: Number, default: 0 }
   },
   {
     timestamps: true

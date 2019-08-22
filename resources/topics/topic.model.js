@@ -6,8 +6,17 @@ const topicSchema = mongoose.Schema(
       type: String,
       required: true
     },
+    pendingEditorialReview: {
+      type: Boolean,
+      default: true
+    },
     includeInDirectory: {
-      type: Boolean
+      type: Boolean,
+      default: false
+    },
+    includeInPredictionTopicsList: {
+      type: Boolean,
+      default: true
     }
   },
   {

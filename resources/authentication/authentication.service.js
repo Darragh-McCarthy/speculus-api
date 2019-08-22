@@ -32,18 +32,19 @@ const audience = "http://speculus.app";
 // -1h  -3600000
 // -200  -200
 
+const expiresIn = "30m";
 const signOptions = {
   // issuer,
   // subject,
   // audience,
-  expiresIn: "1h",
+  expiresIn,
   algorithm: "RS256"
 };
 const verifyOptions = {
   // issuer,
   // subject,
   // audience,
-  expiresIn: "1h",
+  expiresIn,
   algorithms: ["RS256"]
 };
 

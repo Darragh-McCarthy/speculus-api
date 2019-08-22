@@ -8,7 +8,7 @@ router.route("/").get(async (req, res) => {
   if (req.query.query) {
     promise = TopicModel.find({ title: new RegExp(req.query.query, "ig") });
   } else {
-    promise = TopicModel.find({});
+    promise = TopicModel.find({ includeInDirectory: true });
   }
   const sorted = await promise.sort({ title: 1 }).exec();
   res.send({ data: sorted });

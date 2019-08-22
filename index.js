@@ -18,6 +18,9 @@ const {
 const {
   authMiddleware
 } = require("./resources/authentication/authentication.middleware");
+const { ratingsRouter } = require("./resources/ratings/ratings.router");
+const { commentsRouter } = require("./resources/comments/comments.router");
+const { usersRouter } = require("./resources/users/users.router");
 
 app.use(json());
 app.use(
@@ -42,6 +45,9 @@ loggedInRouter.use(authMiddleware);
 loggedInRouter.use("/predictions", predictionsRouter);
 loggedInRouter.use("/topics", topicsRouter);
 loggedInRouter.use("/user-account", userAccountRouter);
+loggedInRouter.use("/ratings", ratingsRouter);
+loggedInRouter.use("/comments", commentsRouter);
+loggedInRouter.use("/users", usersRouter);
 
 app.use("/authentication", authenticationRouter);
 app.use("/mocks", mocksRouter);
