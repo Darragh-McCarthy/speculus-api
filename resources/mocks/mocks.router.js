@@ -71,6 +71,7 @@ mocksRouter.get("/populate", async (req, res) => {
         TopicModel.create({
           author: users[Math.floor(Math.random() * users.length)],
           title: e.title.trim(),
+          titleLowerCase: e.title.trim().toLowerCase(),
           pendingEditorialReview: false,
           includeInDirectory: true
         })

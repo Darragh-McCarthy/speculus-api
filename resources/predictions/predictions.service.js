@@ -12,7 +12,11 @@ async function makePrediction(
       newTopics.map(async e =>
         TopicModel.updateOne(
           {
-            title: e.title
+            title: e.title.trim()
+          },
+          {
+            title: e.title.trim(),
+            titleLowerCase: e.title.trim().toLowerCase()
           },
           { upsert: true }
         )
@@ -26,9 +30,10 @@ async function makePrediction(
       avatarUrl
     },
     title: title,
-    titleLowercase: title.toLowerCase(),
+    titleLowerCase: title.toLowerCase(),
     topics: (topics || []).map(e => ({
       title: e.title,
+      titleLowerCase: e.title.trim().toLowerCase(),
       addedBy: userId
     }))
   });

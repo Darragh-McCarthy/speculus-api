@@ -4,11 +4,13 @@ const predictionSchema = mongoose.Schema(
   {
     title: {
       type: String,
-      required: true
+      required: true,
+      maxlength: 300
     },
-    titleLowercase: {
+    titleLowerCase: {
       type: String,
-      required: true
+      required: true,
+      maxlength: 300
     },
     author: {
       id: {
@@ -18,18 +20,26 @@ const predictionSchema = mongoose.Schema(
       },
       fullName: {
         type: String,
-        required: true
+        required: true,
+        maxlength: 300
       },
       avatarUrl: {
         type: String,
-        required: true
+        required: true,
+        maxlength: 1000
       }
     },
     topics: [
       {
         title: {
           type: String,
-          required: true
+          required: true,
+          maxlength: 300
+        },
+        titleLowerCase: {
+          type: String,
+          required: true,
+          maxlength: 300
         },
         addedBy: {
           type: mongoose.Schema.Types.ObjectId,
