@@ -1,22 +1,30 @@
 const { RatingModel } = require("./rating.model");
 
-async function ratePrediction({ userId, predictionId, sevenStarLikelihood }) {
+async function ratePrediction(
+  { predictionId, sevenStarLikelihood },
+  { userId, fullName, avatarUrl }
+) {
   const query = {
-    user: userId,
+    "author.id": userId,
     prediction: predictionId
   };
   if (sevenStarLikelihood) {
-    await RatingModel.updateOne(
+    const rating = await RatingModel.findOneAndUpdate(
       query,
       {
-        user: userId,
+        author: {
+          id: userId,
+          avatarUrl,
+          fullName
+        },
         prediction: predictionId,
         sevenStarLikelihood: sevenStarLikelihood
       },
       {
         upsert: true,
         useFindAndModify: false,
-        runValidators: true
+        runValidators: true,
+        new: true
       }
     );
   } else {
@@ -24,13 +32,26 @@ async function ratePrediction({ userId, predictionId, sevenStarLikelihood }) {
   }
 }
 
+function getRatingLabel(rating) {
+  return {
+    1: "Definitely not",
+    2: "Very unlikely",
+    3: "Unlikely",
+    4: "Possibly",
+    5: "Likely",
+    6: "Very likely",
+    7: "Definitely"
+  }[rating];
+}
+
 async function getAllRatings(userId) {
-  return RatingModel.find({ user: userId })
+  return RatingModel.find({ "author.id": userId })
     .select({ prediction: 1, _id: 0, sevenStarLikelihood: true })
     .exec();
 }
 
 module.exports = {
   getAllRatings,
-  ratePrediction
+  ratePrediction,
+  getRatingLabel
 };

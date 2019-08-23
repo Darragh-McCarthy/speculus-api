@@ -1,13 +1,15 @@
 const { Router } = require("express");
 const { UserModel } = require("../users/user.model");
 const { getAllRatings } = require("../ratings/ratings.service");
+const { getNotifications } = require("../notifications/notifications.service");
 
 const router = new Router();
 
 router.get("/", async (req, res) => {
   const user = await UserModel.findById(res.locals.userId);
   const ratings = await getAllRatings(res.locals.userId);
-  res.json({ data: { user, ratings } });
+  const notifications = await getNotifications({ userId: res.locals.userId });
+  res.json({ data: { user, ratings, notifications } });
 });
 
 module.exports = {

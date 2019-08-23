@@ -2,10 +2,20 @@ const mongoose = require("mongoose");
 
 const ratingSchema = mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true
+    author: {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+      },
+      fullName: {
+        type: String,
+        required: true
+      },
+      avatarUrl: {
+        type: String,
+        required: true
+      }
     },
     prediction: {
       type: mongoose.Schema.Types.ObjectId,

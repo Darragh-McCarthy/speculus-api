@@ -37,38 +37,17 @@ async function makePrediction(
       addedBy: userId
     }))
   });
-  await ratePrediction({
-    predictionId: prediction._id,
-    sevenStarLikelihood: 7,
-    userId
-  });
+  await ratePrediction(
+    {
+      predictionId: prediction._id,
+      sevenStarLikelihood: 7
+    },
+    { userId, fullName, avatarUrl }
+  );
 
   return { prediction };
 }
 
-async function addComment(
-  predictionId,
-  commentText,
-  userId,
-  avatarUrl,
-  fullName
-) {
-  const prediction = await PredictionModel.findById(predictionId);
-  const rating = prediction.ratings.find(e => e.author.id.equals(userId));
-  prediction.comments.push({
-    rating: rating && rating.rating,
-    text: commentText,
-    author: {
-      id: userId,
-      avatarUrl,
-      fullName
-    },
-    createdAt: Date.now()
-  });
-  await prediction.save();
-}
-
 module.exports = {
-  addComment,
   makePrediction
 };

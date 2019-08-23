@@ -1,5 +1,6 @@
 const { PredictionModel } = require("../predictions/prediction.model");
 const { CommentModel } = require("./comment.model");
+const { NotificationModel } = require("../notifications/notification.model");
 
 async function addComment(
   predictionId,
@@ -19,10 +20,13 @@ async function addComment(
       fullName: fullName
     }
   });
-  await PredictionModel.findByIdAndUpdate(predictionId, {
+  const prediction = await PredictionModel.findByIdAndUpdate(predictionId, {
     $inc: { commentsCount: 1 }
   });
-  return comment;
+  return {
+    comment,
+    prediction
+  };
 }
 
 module.exports = {

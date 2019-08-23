@@ -6,6 +6,7 @@ const { TopicModel } = require("../topics/topic.model");
 const { RatingModel } = require("../ratings/rating.model");
 const { CommentModel } = require("../comments/comment.model");
 const { addComment } = require("../comments/comments.service");
+const { NotificationModel } = require("../notifications/notification.model");
 
 const faker = require("faker");
 
@@ -17,6 +18,7 @@ const clearMockData = async () => {
   await TopicModel.deleteMany({});
   await PredictionModel.deleteMany({});
   await UserModel.deleteMany({});
+  await NotificationModel.deleteMany({});
 };
 
 const mockUserData = [
@@ -120,6 +122,10 @@ mocksRouter.get("/populate", async (req, res) => {
 mocksRouter.get("/clear", async (req, res) => {
   await clearMockData();
   return res.json({});
+});
+mocksRouter.get("/users", async (req, res) => {
+  const users = await UserModel.find({});
+  return res.json({ data: users });
 });
 
 module.exports = {

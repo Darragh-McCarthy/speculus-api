@@ -6,7 +6,9 @@ const router = new Router();
 
 router.get("/", async (req, res) => {
   let promise;
-  if (req.query.authorId) {
+  if (req.query.id) {
+    promise = PredictionModel.find({ _id: req.query.id });
+  } else if (req.query.authorId) {
     promise = PredictionModel.find({ "author.id": req.query.authorId });
   } else if (req.query.topicTitle) {
     promise = PredictionModel.find({
