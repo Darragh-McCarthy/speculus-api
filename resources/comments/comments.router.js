@@ -9,9 +9,12 @@ router.get("/", async (req, res) => {
   const comments = await CommentModel.find({
     prediction: req.query.predictionId
   });
+
+  // setTimeout(() => {
   res.json({
     data: comments
   });
+  // }, 1000);
 });
 
 router.post("/", async (req, res) => {

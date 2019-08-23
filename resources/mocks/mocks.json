@@ -1,6 +1,13 @@
 {
   "data": [
     {
+      "title": "In the future, people will wear technologically enhanced clothing capable of changing shape, texture and color",
+      "topics": [
+        { "title": "Fashion" },
+        { "title": "Technologically advanced clothing" }
+      ]
+    },
+    {
       "title": "In a few decades most urban traffic will move underground utilising a complex system of tunnels",
       "topics": [{ "title": "Turkey" }, { "title": "European Union" }]
     },
