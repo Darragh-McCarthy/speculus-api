@@ -63,7 +63,7 @@ mocksRouter.get("/populate", async (req, res) => {
       .map(e => e.topics)
       .reduce((a, b) => {
         b.forEach(eachTopic => {
-          if (!a.find(e => e.title === eachTopic.title)) {
+          if (!a.find(e => e === eachTopic)) {
             a.push(eachTopic);
           }
         });
@@ -72,8 +72,8 @@ mocksRouter.get("/populate", async (req, res) => {
       .map(e =>
         TopicModel.create({
           author: users[Math.floor(Math.random() * users.length)],
-          title: e.title.trim(),
-          titleLowerCase: e.title.trim().toLowerCase(),
+          title: e.trim(),
+          titleLowerCase: e.trim().toLowerCase(),
           pendingEditorialReview: false,
           includeInDirectory: true
         })
@@ -81,8 +81,11 @@ mocksRouter.get("/populate", async (req, res) => {
   );
 
   mockPredictions.forEach(eachPrediction => {
-    eachPrediction.topics.forEach(eachTopic => {
-      eachTopic.addedBy = users[Math.floor(Math.random() * users.length)];
+    eachPrediction.topics = eachPrediction.topics.map(eachTopic => {
+      return {
+        addedBy: users[Math.floor(Math.random() * users.length)],
+        title: eachTopic
+      };
     });
   });
 
@@ -106,12 +109,16 @@ mocksRouter.get("/populate", async (req, res) => {
     for (let eachComment of comments) {
       const author = users[Math.floor(Math.random() * users.length)];
       await addComment(
-        prediction._id,
-        eachComment,
-        author._id,
-        author.avatarUrl,
-        author.fullName,
-        Math.ceil(Math.random() * 7)
+        {
+          predictionId: prediction._id,
+          text: eachComment,
+          sevenStarLikelihood: Math.ceil(Math.random() * 7)
+        },
+        {
+          userId: author._id,
+          avatarUrl: author.avatarUrl,
+          fullName: author.fullName
+        }
       );
     }
   }

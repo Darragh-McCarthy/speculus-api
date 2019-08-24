@@ -1,94 +1,112 @@
 {
   "data": [
     {
+      "title": "In 2040 your nutrition will be managed by companies using data analytics to ensure you get the optimal level of vitamins and minerals",
+      "topics": ["Nutrition", "2040", "Data analytics", "Vitamins & minerals"]
+    },
+    {
+      "title": "In 2050 most people will look back at the act of eating meat with disgust",
+      "topics": ["Meat", "Vegetarian", "Carnivore"]
+    },
+    {
+      "title": "Over the coming decades, entertainment will become overwhelmingly personalised, to the point where any given experience is designed with you and only you in mind",
+      "topics": ["Gaming", "Entertainment", "Film"]
+    },
+    {
+      "title": "Hyperloop transportation will result in a dramatic decline in air travel",
+      "topics": ["Airplanes", "Hyperloop"]
+    },
+    {
+      "title": "Augmented/Mixed reality will be ubiquitous in 15 years time",
+      "topics": ["Augmented reality"]
+    },
+    {
+      "title": "Within a few years, technology companies will predict acts of extremism and facilitate early intervention",
+      "topics": ["Surveillance", "Technology companies", "Extremism"]
+    },
+    {
+      "title": "An Artificial General Intelligence will be developed within the next 50 years",
+      "topics": ["Artificial General Intelligence", "AI"]
+    },
+    {
+      "title": "Job automation and the resulting improvement of work/life balance will trigger an increase in birth rates",
+      "topics": ["Birth rates", "Work/life balance", "Job automation"]
+    },
+    {
+      "title": "Most people will work remotely by 2035",
+      "topics": ["Remote work", "Workplace"]
+    },
+    {
+      "title": "Nuclear weapons will never again be used in warfare",
+      "topics": ["Nuclear weapons", "Warfare"]
+    },
+    {
+      "title": "A colony will be established on Mars by 2035",
+      "topics": ["Space colonies", "Mars", "Space"]
+    },
+    {
       "title": "In the future, people will wear technologically enhanced clothing capable of changing shape, texture and color",
-      "topics": [
-        { "title": "Fashion" },
-        { "title": "Technologically advanced clothing" }
-      ]
+      "topics": ["Fashion", "Technologically advanced clothing"]
     },
     {
       "title": "In a few decades most urban traffic will move underground utilising a complex system of tunnels",
-      "topics": [{ "title": "Turkey" }, { "title": "European Union" }]
+      "topics": ["Turkey", "European Union"]
     },
     {
       "title": "Turkey will join the EU",
-      "topics": [{ "title": "Turkey" }, { "title": "European Union" }]
+      "topics": ["Turkey", "European Union"]
     },
     {
       "title": "The UK will leave the EU with \"No Deal\" in October 2019",
-      "topics": [
-        { "title": "United Kingdom" },
-        { "title": "European Union" },
-        { "title": "Brexit" }
-      ]
+      "topics": ["United Kingdom", "European Union", "Brexit"]
     },
     {
       "title": "By 2050 most babies will be conceived in a laboratory environment",
-      "topics": [
-        { "title": "Technology" },
-        { "title": "Babies" },
-        { "title": "2050" }
-      ]
+      "topics": ["Technology", "Babies", "2050"]
     },
     {
       "title": "Humans will be responsible for the largest mass extinction event in history",
-      "topics": [{ "title": "Extinction" }, { "title": "Humanity" }]
+      "topics": ["Extinction", "Humanity"]
     },
     {
       "title": "There will be a female president in the United States by 2030",
-      "topics": [
-        { "title": "United States President" },
-        { "title": "2030" },
-        { "title": "Female President" }
-      ]
+      "topics": ["United States President", "2030", "Female President"]
     },
     {
       "title": "The acting profession will go into rapid decline within the next decade",
-      "topics": [{ "title": "Acting profession" }]
+      "topics": ["Acting profession"]
     },
     {
       "title": "Pervasive surveillance will be the norm in 10 years time",
-      "topics": [{ "title": "Technology" }, { "title": "Surveillance" }]
+      "topics": ["Technology", "Surveillance"]
     },
     {
       "title": "A Universal Basic Income will be established in the western world within 20 years",
-      "topics": [
-        { "title": "Universal Basic Income" },
-        { "title": "Western World" }
-      ]
+      "topics": ["Universal Basic Income", "Western World"]
     },
     {
       "title": "Tesla will achieve level 5 autonomy by 2022",
-      "topics": [
-        { "title": "Tesla" },
-        { "title": "2022" },
-        { "title": "Level 5 autonomy" }
-      ]
+      "topics": ["Tesla", "2022", "Level 5 autonomy"]
     },
     {
       "title": "50% of all vehicles on the road will be electric in 2030",
-      "topics": [
-        { "title": "Electric" },
-        { "title": "2030" },
-        { "title": "Electric vehicles" }
-      ]
+      "topics": ["Electric", "2030", "Electric vehicles"]
     },
     {
       "title": "Average commute times will increase when autonomous transportation networks become established",
-      "topics": [{ "title": "Commutes" }, { "title": "Autonomous vehicles" }]
+      "topics": ["Commutes", "Autonomous vehicles"]
     },
     {
       "title": "Artificial organ transplants will become a commodity by 2040",
-      "topics": [{ "title": "Organ transplants" }, { "title": "Medicine" }]
+      "topics": ["Organ transplants", "Medicine"]
     },
     {
       "title": "The tourism industry will double in within a decade",
-      "topics": [{ "title": "Tourism industry" }]
+      "topics": ["Tourism industry"]
     },
     {
       "title": "Most public transportation will be free in 2040",
-      "topics": [{ "title": "Public transportation" }, { "title": "2040" }]
+      "topics": ["Public transportation", "2040"]
     }
   ]
 }
