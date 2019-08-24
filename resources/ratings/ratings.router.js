@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { ratePrediction, getRatingLabel } = require("./ratings.service");
-const { PredictionModel } = require("../predictions/prediction.model");
-const { NotificationModel } = require("../notifications/notification.model");
+const { PredictionModel } = require("../../models/prediction.model");
+const { NotificationModel } = require("../../models/notification.model");
 
 const router = new Router();
 

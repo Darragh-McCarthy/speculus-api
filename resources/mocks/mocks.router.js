@@ -1,12 +1,12 @@
 const { Router } = require("express");
-const { PredictionModel } = require("../predictions/prediction.model");
+const { PredictionModel } = require("../../models/prediction.model");
 const { makePrediction } = require("../predictions/predictions.service");
-const { UserModel } = require("../users/user.model");
-const { TopicModel } = require("../topics/topic.model");
-const { RatingModel } = require("../ratings/rating.model");
-const { CommentModel } = require("../comments/comment.model");
+const { UserModel } = require("../../models/user.model");
+const { TopicModel } = require("../../models/topic.model");
+const { RatingModel } = require("../../models/rating.model");
+const { CommentModel } = require("../../models/comment.model");
 const { addComment } = require("../comments/comments.service");
-const { NotificationModel } = require("../notifications/notification.model");
+const { NotificationModel } = require("../../models/notification.model");
 
 const faker = require("faker");
 

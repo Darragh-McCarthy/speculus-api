@@ -1,4 +1,4 @@
-const { RatingModel } = require("./rating.model");
+const { RatingModel } = require("../../models/rating.model");
 
 async function ratePrediction(
   { predictionId, sevenStarLikelihood },

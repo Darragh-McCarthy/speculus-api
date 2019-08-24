@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { PredictionModel } = require("./prediction.model");
+const { PredictionModel } = require("../../models/prediction.model");
 const { makePrediction } = require("./predictions.service");
 
 const router = new Router();

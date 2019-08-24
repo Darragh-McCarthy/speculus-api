@@ -1,7 +1,7 @@
 const { Router } = require("express");
-const { CommentModel } = require("./comment.model");
+const { CommentModel } = require("../../models/comment.model");
 const { addComment } = require("./comments.service");
-const { NotificationModel } = require("../notifications/notification.model");
+const { NotificationModel } = require("../../models/notification.model");
 
 const router = new Router();
 

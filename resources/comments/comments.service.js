@@ -1,6 +1,5 @@
-const { PredictionModel } = require("../predictions/prediction.model");
-const { CommentModel } = require("./comment.model");
-const { NotificationModel } = require("../notifications/notification.model");
+const { PredictionModel } = require("../../models/prediction.model");
+const { CommentModel } = require("../../models/comment.model");
 
 async function addComment(
   predictionId,

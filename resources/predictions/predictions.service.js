@@ -1,5 +1,5 @@
-const { PredictionModel } = require("./prediction.model");
-const { TopicModel } = require("../topics/topic.model");
+const { PredictionModel } = require("../../models/prediction.model");
+const { TopicModel } = require("../../models/topic.model");
 const { ratePrediction } = require("../ratings/ratings.service");
 
 async function makePrediction(

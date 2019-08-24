@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { UserModel } = require("../users/user.model");
+const { UserModel } = require("../../models/user.model");
 const authenticationService = require("./authentication.service");
 const faker = require("faker");
 

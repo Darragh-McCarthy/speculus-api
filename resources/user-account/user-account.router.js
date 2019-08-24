@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { UserModel } = require("../users/user.model");
+const { UserModel } = require("../../models/user.model");
 const { getAllRatings } = require("../ratings/ratings.service");
 const { getNotifications } = require("../notifications/notifications.service");
 

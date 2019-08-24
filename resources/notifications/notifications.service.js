@@ -1,4 +1,4 @@
-const { NotificationModel } = require("./notification.model");
+const { NotificationModel } = require("../../models/notification.model");
 
 async function notifyOfComment({ userToNotify, predictionId, commentId }) {
   await NotificationModel.create({
