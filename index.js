@@ -2,8 +2,10 @@ const mongoose = require("mongoose");
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const helmet = require("helmet");
 const { json, urlencoded } = require("body-parser");
 const app = express();
+
 const { mocksRouter } = require("./resources/mocks/mocks.router");
 const {
   predictionsRouter
@@ -22,6 +24,36 @@ const { ratingsRouter } = require("./resources/ratings/ratings.router");
 const { commentsRouter } = require("./resources/comments/comments.router");
 const { usersRouter } = require("./resources/users/users.router");
 
+const Joi = require("@hapi/joi");
+
+const schema = Joi.object()
+  .keys({
+    username: Joi.string()
+      .alphanum()
+      .min(3)
+      .max(30)
+      .required(),
+    password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/),
+    access_token: [Joi.string(), Joi.number()],
+    birthyear: Joi.number()
+      .integer()
+      .min(1900)
+      .max(2013),
+    email: Joi.string().email({ minDomainSegments: 2 })
+  })
+  .with("username", "birthyear")
+  .without("password", "access_token");
+
+// Return result.
+const result = Joi.validate({ username: "abc", birthyear: 1994 }, schema);
+// result.error === null -> valid
+
+// You can also pass a callback which will be called synchronously with the validation result.
+Joi.validate({ username: "abc", birthyear: 1994 }, schema, function(
+  err,
+  value
+) {}); // err === null -> valid
+
 app.use(json());
 app.use(
   urlencoded({
@@ -30,12 +62,16 @@ app.use(
 );
 app.use(morgan("dev"));
 app.use(cors());
+app.use(helmet());
 
 // TODO
 app.disable("etag");
 
 const connect = () => {
-  return mongoose.connect("mongodb://localhost:27017/myFirstDatabase", {
+  const localUri = "mongodb://localhost:27017/myFirstDatabase";
+  const atlasUri =
+    "mongodb+srv://darragh:Wevb8X2oKr1G633W@cluster0-f8ars.mongodb.net/test?retryWrites=true&w=majority";
+  return mongoose.connect(atlasUri, {
     useNewUrlParser: true
   });
 };

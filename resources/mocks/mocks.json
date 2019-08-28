@@ -1,6 +1,18 @@
 {
   "data": [
     {
+      "title": "In the future, we will need to rely on technology companies to verify the truthfullness of everything we witness in the media",
+      "topics": ["Deep fakes"]
+    },
+    {
+      "title": "In 2040 most of the products you purchase will have been 3D printed",
+      "topics": ["3D printing", "2040"]
+    },
+    {
+      "title": "In a few decades, mind-controlled prosthetics will achieve mainstream adoption by people without disabilities as a means of enhancing dexterity and sensory capabilities",
+      "topics": ["Prosthetics", "2040", "Mind control"]
+    },
+    {
       "title": "In 2040 your nutrition will be managed by companies using data analytics to ensure you get the optimal level of vitamins and minerals",
       "topics": ["Nutrition", "2040", "Data analytics", "Vitamins & minerals"]
     },
@@ -101,7 +113,7 @@
       "topics": ["Organ transplants", "Medicine"]
     },
     {
-      "title": "The tourism industry will double in within a decade",
+      "title": "The tourism industry will double within the next 2 decades",
       "topics": ["Tourism industry"]
     },
     {
