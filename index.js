@@ -26,7 +26,7 @@ const { usersRouter } = require("./resources/users/users.router");
 
 const Joi = require("@hapi/joi");
 
-import cuid from "cuid";
+const cuid = require("cuid");
 
 const port = process.env.PORT || 4000;
 
