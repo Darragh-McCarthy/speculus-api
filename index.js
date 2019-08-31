@@ -26,6 +26,12 @@ const { usersRouter } = require("./resources/users/users.router");
 
 const Joi = require("@hapi/joi");
 
+import cuid from "cuid";
+
+const port = process.env.PORT || 4000;
+
+console.log("cuid", cuid());
+
 const schema = Joi.object()
   .keys({
     username: Joi.string()
@@ -91,6 +97,6 @@ app.use("/", loggedInRouter);
 
 connect()
   .then(async connection => {
-    app.listen(4000);
+    app.listen(port);
   })
   .catch(e => console.log(e));
