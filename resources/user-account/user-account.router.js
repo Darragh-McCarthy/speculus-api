@@ -3,9 +3,17 @@ const { UserModel } = require("../../models/user.model");
 const { getAllRatings } = require("../ratings/ratings.service");
 const { getNotifications } = require("../notifications/notifications.service");
 
+const csrf = require("csurf");
+
+const csrfProtection = csrf({ cookie: true });
 const router = new Router();
 
 router.get("/", async (req, res) => {
+  // testing
+  // res.cookie("XSRF-TOKEN", req.csrfToken());
+  res.cookie("testingcookie", 123);
+  console.log("setting");
+
   const user = await UserModel.findById(res.locals.userId);
   const ratings = await getAllRatings(res.locals.userId);
   const notifications = await getNotifications({ userId: res.locals.userId });

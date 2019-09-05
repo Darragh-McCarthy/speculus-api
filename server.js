@@ -5,6 +5,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const { json, urlencoded } = require("body-parser");
 const app = express();
+const cookieParser = require("cookie-parser");
 
 const { mocksRouter } = require("./resources/mocks/mocks.router");
 const {
@@ -28,7 +29,7 @@ const Joi = require("@hapi/joi");
 
 const cuid = require("cuid");
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 
 console.log("cuid", cuid());
 
@@ -60,6 +61,8 @@ Joi.validate({ username: "abc", birthyear: 1994 }, schema, function(
   value
 ) {}); // err === null -> valid
 
+app.use(cookieParser());
+
 app.use(json());
 app.use(
   urlencoded({
@@ -67,7 +70,12 @@ app.use(
   })
 );
 app.use(morgan("dev"));
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://127.0.0.1:4200", "http://speculus.app"],
+    credentials: true
+  })
+);
 app.use(helmet());
 
 // TODO
@@ -81,6 +89,16 @@ const connect = () => {
     useNewUrlParser: true
   });
 };
+
+app.get("/something", (req, res) => {
+  res.cookie("testinganotherheader", "withthis");
+
+  console.log("headers", res.getHeaders());
+  // res.append("Set-Cookie", "foo=bar; Path=/; HttpOnly");
+  res.json({
+    hello: true
+  });
+});
 
 const loggedInRouter = new express.Router();
 loggedInRouter.use(authMiddleware);
