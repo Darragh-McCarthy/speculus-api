@@ -24,7 +24,7 @@ app.use(
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: ["http://127.0.0.1:4200", "http://speculus.app"],
+    origin: ["http://127.0.0.1:4200", "https://speculus.app"],
     credentials: true,
     allowedHeaders:
       "X-CSRF-Token, X-XSRF-TOKEN, origin, content-type, accept, authorization"
