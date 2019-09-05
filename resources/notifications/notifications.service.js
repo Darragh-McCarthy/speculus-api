@@ -12,9 +12,7 @@ async function getNotifications({ userId }) {
   return NotificationModel.find({
     userToNotify: userId
   })
-    .populate("prediction")
-    .populate("rating")
-    .populate("comment")
+    .sort("-createdAt")
     .exec();
 }
 
