@@ -2,10 +2,12 @@ const { Router } = require("express");
 const { ratePrediction, getRatingLabel } = require("./ratings.service");
 const { PredictionModel } = require("../../models/prediction.model");
 const { NotificationModel } = require("../../models/notification.model");
+const csrf = require("csurf");
 
 const router = new Router();
+const csrfProtection = csrf({ cookie: true });
 
-router.post("/", async (req, res) => {
+router.post("/", csrfProtection, async (req, res) => {
   await ratePrediction(
     {
       predictionId: req.body.predictionId,

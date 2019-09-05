@@ -8,7 +8,9 @@ const csrf = require("csurf");
 const csrfProtection = csrf({ cookie: true });
 const router = new Router();
 
-router.get("/", async (req, res) => {
+router.get("/", csrfProtection, async (req, res) => {
+  const token = req.csrfToken();
+  res.cookie("XSRF-TOKEN", token);
   const user = await UserModel.findById(res.locals.userId);
   const ratings = await getAllRatings(res.locals.userId);
   const notifications = await getNotifications({ userId: res.locals.userId });
