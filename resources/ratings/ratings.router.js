@@ -8,6 +8,8 @@ const router = new Router();
 const csrfProtection = csrf({ cookie: true });
 
 router.post("/", csrfProtection, async (req, res) => {
+  console.log(res.locals);
+
   await ratePrediction(
     {
       predictionId: req.body.predictionId,

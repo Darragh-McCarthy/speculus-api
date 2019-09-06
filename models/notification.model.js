@@ -7,6 +7,10 @@ const notificationSchema = mongoose.Schema(
       ref: "User",
       required: true
     },
+    read: {
+      type: Boolean,
+      default: false
+    },
     notifyOfText: {
       required: false,
       type: String
@@ -72,10 +76,6 @@ const notificationSchema = mongoose.Schema(
           ref: "Prediction"
         }
       }
-    },
-    read: {
-      type: Boolean,
-      default: false
     }
   },
   { timestamps: true }

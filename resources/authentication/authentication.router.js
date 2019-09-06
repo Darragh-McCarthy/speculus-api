@@ -2,6 +2,7 @@ const { Router } = require("express");
 const { UserModel } = require("../../models/user.model");
 const authenticationService = require("./authentication.service");
 const faker = require("faker");
+const { NotificationModel } = require("../../models/notification.model");
 
 const authenticationRouter = new Router();
 
@@ -52,6 +53,11 @@ authenticationRouter.post("/register", async (req, res) => {
     upsert: true,
     new: true,
     useFindAndModify: false
+  });
+
+  await NotificationModel.create({
+    userToNotify: user,
+    notifyOfText: "Welcome to Speculus"
   });
 
   const jwt = await authenticationService.sign({
