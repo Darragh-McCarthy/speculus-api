@@ -1,6 +1,10 @@
 {
   "data": [
     {
+      "title": "In 20 years, most elderly people will wear an exoskeleton to aid mobility",
+      "topics": ["Elderly", "Exoskeleton"]
+    },
+    {
       "title": "Pervasive surveilance in combination with preemptive intervention will end most violent crime around the world",
       "topics": ["Crime", "Policing"]
     },
@@ -29,8 +33,8 @@
       "topics": ["Gaming", "Entertainment", "Film"]
     },
     {
-      "title": "Hyperloop transportation will result in a dramatic decline in air travel",
-      "topics": ["Airplanes", "Hyperloop"]
+      "title": "Hyperloop travel will become the dominant mode of long-distance transportation",
+      "topics": ["Hyperloop"]
     },
     {
       "title": "Augmented/Mixed reality will be ubiquitous in 15 years time",

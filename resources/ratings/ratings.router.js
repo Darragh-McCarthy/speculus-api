@@ -23,9 +23,14 @@ router.post("/", csrfProtection, async (req, res) => {
   ).select({ title: 1, _id: 1, "author.id": 1 });
 
   if (
-    prediction.author.id !== res.locals.userId &&
+    !prediction.author.id.equals(res.locals.userId) &&
     req.body.sevenStarLikelihood
   ) {
+    console.log(
+      typeof prediction.author.id,
+      typeof res.locals.userId,
+      req.body.sevenStarLikelihood
+    );
     await NotificationModel.create({
       userToNotify: prediction.author.id,
       notifyOfRating: {

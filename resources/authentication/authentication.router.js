@@ -1,23 +1,13 @@
 const { Router } = require("express");
+const faker = require("faker");
+
 const { UserModel } = require("../../models/user.model");
 const authenticationService = require("./authentication.service");
-const faker = require("faker");
 const { NotificationModel } = require("../../models/notification.model");
 
-const authenticationRouter = new Router();
+const router = new Router();
 
-authenticationRouter.get("/", async (req, res) => {
-  const user = await UserModel.findOne({ "email.primary": req.body.email });
-  if (!user) {
-    res.status(404).json({});
-    return;
-  }
-  res.json({
-    data: user
-  });
-});
-
-authenticationRouter.post("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   const user = await UserModel.findOne({ "email.primary": req.body.email });
   if (!user) {
     res.status(404).json({});
@@ -25,21 +15,18 @@ authenticationRouter.post("/login", async (req, res) => {
   }
 
   const jwt = await authenticationService.sign({
-    email: req.body.email,
+    email: user.email.primary,
     userId: user._id,
     fullName: user.fullName,
     avatarUrl: user.avatarUrl
   });
 
   res.json({
-    jwt,
-    email: user.email,
-    userId: user._id,
-    avatarUrl: user.avatarUrl
+    jwt
   });
 });
 
-authenticationRouter.post("/register", async (req, res) => {
+router.post("/register", async (req, res) => {
   const data = {
     fullName: req.body.fullName,
     email: {
@@ -73,5 +60,5 @@ authenticationRouter.post("/register", async (req, res) => {
 });
 
 module.exports = {
-  authenticationRouter
+  authenticationRouter: router
 };
