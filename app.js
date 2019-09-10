@@ -12,9 +12,8 @@ const { mocksRouter, authenticationRouter } = require("./resources");
 const cuid = require("cuid");
 const { loggedInRouter } = require("./logged-in.router");
 
-var xss = require("xss");
-var html = xss('<script>alert("xss");</script>');
-console.log(html);
+// var xss = require("xss");
+// var html = xss('<script>alert("xss");</script>');
 
 app.use(cookieParser());
 
@@ -27,7 +26,11 @@ app.use(
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: ["https://127.0.0.1:4200", "https://speculus.app"],
+    origin: [
+      "https://127.0.0.1:4200",
+      "https://localhost:4200",
+      "https://speculus.app"
+    ],
     credentials: true,
     allowedHeaders:
       "X-CSRF-Token, X-XSRF-TOKEN, origin, content-type, accept, authorization"
@@ -55,7 +58,7 @@ const connect = () => {
   const localUri = "mongodb://localhost:27017/myFirstDatabase";
   const atlasUri =
     "mongodb+srv://darragh:Wevb8X2oKr1G633W@cluster0-f8ars.mongodb.net/test?retryWrites=true&w=majority";
-  return mongoose.connect(atlasUri, {
+  return mongoose.connect(localUri, {
     useNewUrlParser: true
   });
 };

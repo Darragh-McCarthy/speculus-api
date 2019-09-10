@@ -18,7 +18,7 @@ const predictionSchema = mongoose.Schema(
         ref: "User",
         required: true
       },
-      fullName: {
+      name: {
         type: String,
         required: true,
         maxlength: 300

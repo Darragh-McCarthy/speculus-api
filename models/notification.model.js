@@ -22,7 +22,7 @@ const notificationSchema = mongoose.Schema(
           required: true,
           type: String
         },
-        commentAuthorFullName: {
+        commentAuthorName: {
           required: true,
           type: String
         },
@@ -53,7 +53,7 @@ const notificationSchema = mongoose.Schema(
           required: true,
           type: String
         },
-        ratingAuthorFullName: {
+        ratingAuthorName: {
           required: true,
           type: String
         },

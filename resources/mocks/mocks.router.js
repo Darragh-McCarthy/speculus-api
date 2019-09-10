@@ -21,11 +21,32 @@ const clearMockData = async () => {
   await NotificationModel.deleteMany({});
 };
 
-const mockUserData = [
-  { email: "johndoe@gmail.com", fullName: "John Doe" },
-  { email: "emily@gmail.com", fullName: "Emily Crowley" },
-  { email: "arnold@gmail.com", fullName: "Arnold Swartzeneiger" },
-  { email: "philip@gmail.com", fullName: "Philip Sweet" }
+const myFacebookUser = {
+  id: "10219643547749078",
+  email: "darraghjames@gmail.com",
+  name: "Darragh McCarthy"
+};
+const mockFacebookUsers = [
+  {
+    id: "100041542292052",
+    email: "geqqupgrip_1568142314@tfbnw.net",
+    name: "Margaret Aldaedbbibjeb Bushakberg"
+  },
+  {
+    id: "100041287545389",
+    email: "zsxlsqggvr_1568142332@tfbnw.net",
+    name: "Dave Aldabhgedechi Bushakwitz"
+  },
+  {
+    id: "100041271435691",
+    email: "uayvrtoapq_1568142326@tfbnw.net",
+    name: "Abigail Aldabgadcefia Wongstein"
+  },
+  {
+    id: "100041134493789",
+    email: "csgberaqlt_1568142321@tfbnw.net",
+    name: "Harry Aldaacddicghi Fallerberg"
+  }
 ];
 
 const mockComments = [
@@ -42,19 +63,23 @@ mocksRouter.get("/populate", async (req, res) => {
     .data; //.slice(0, 3);
 
   const users = await Promise.all(
-    mockUserData.map(e =>
+    mockFacebookUsers.map(e =>
       UserModel.create({
-        email: { primary: e.email },
-        fullName: e.fullName,
-        avatarUrl: faker.image.avatar()
+        facebook: {
+          email: e.email,
+          name: e.name,
+          id: e.id
+        }
       })
     )
   );
 
   await UserModel.create({
-    email: { primary: "darraghjames@gmail.com" },
-    fullName: "Darragh McCarthy",
-    avatarUrl: faker.image.avatar()
+    facebook: {
+      id: myFacebookUser.id,
+      email: myFacebookUser.email,
+      name: myFacebookUser.name
+    }
   });
 
   // create topics
@@ -98,8 +123,8 @@ mocksRouter.get("/populate", async (req, res) => {
       },
       {
         userId: author,
-        avatarUrl: author.avatarUrl,
-        fullName: author.fullName
+        avatarUrl: author.clientSideObject.avatarUrl,
+        name: author.facebook.name
       }
     );
     const comments = mockComments.slice(
@@ -108,6 +133,10 @@ mocksRouter.get("/populate", async (req, res) => {
     );
     for (let eachComment of comments) {
       const author = users[Math.floor(Math.random() * users.length)];
+      console.log("author.clientSideObject");
+      console.log(author.clientSideObject);
+      console.log("author.clientSideObject");
+      console.log(" ");
       await addComment(
         {
           predictionId: prediction._id,
@@ -115,9 +144,9 @@ mocksRouter.get("/populate", async (req, res) => {
           sevenStarLikelihood: Math.ceil(Math.random() * 7)
         },
         {
-          userId: author._id,
-          avatarUrl: author.avatarUrl,
-          fullName: author.fullName
+          id: author._id,
+          avatarUrl: author.clientSideObject.avatarUrl,
+          name: author.facebook.name
         }
       );
     }

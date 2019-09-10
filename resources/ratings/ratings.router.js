@@ -15,7 +15,7 @@ router.post("/", csrfProtection, async (req, res) => {
       predictionId: req.body.predictionId,
       sevenStarLikelihood: req.body.sevenStarLikelihood
     },
-    res.locals
+    res.locals.user
   );
 
   const prediction = await PredictionModel.findById(
@@ -23,21 +23,21 @@ router.post("/", csrfProtection, async (req, res) => {
   ).select({ title: 1, _id: 1, "author.id": 1 });
 
   if (
-    !prediction.author.id.equals(res.locals.userId) &&
+    !prediction.author.id.equals(res.locals.user.id) &&
     req.body.sevenStarLikelihood
   ) {
     console.log(
       typeof prediction.author.id,
-      typeof res.locals.userId,
+      typeof res.locals.user.id,
       req.body.sevenStarLikelihood
     );
     await NotificationModel.create({
       userToNotify: prediction.author.id,
       notifyOfRating: {
         ratingLabel: getRatingLabel(req.body.sevenStarLikelihood),
-        ratingAuthorFullName: res.locals.fullName,
-        ratingAuthorId: res.locals.userId,
-        ratingAuthorAvatarUrl: res.locals.avatarUrl,
+        ratingAuthorName: res.locals.user.name,
+        ratingAuthorId: res.locals.user.id,
+        ratingAuthorAvatarUrl: res.locals.user.avatarUrl,
         predictionTitle: prediction.title,
         predictionId: prediction._id
       }

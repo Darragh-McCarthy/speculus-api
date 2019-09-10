@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { comment } = await addComment(req.body, res.locals);
+  const { comment } = await addComment(req.body, res.locals.user);
   res.json({
     data: comment
   });

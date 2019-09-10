@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
       topics: req.body.topics,
       title: req.body.title
     },
-    res.locals
+    res.locals.user
   );
   res.json({
     data: prediction

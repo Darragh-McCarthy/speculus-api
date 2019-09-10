@@ -2,10 +2,16 @@ const { PredictionModel } = require("../../models/prediction.model");
 const { TopicModel } = require("../../models/topic.model");
 const { ratePrediction } = require("../ratings/ratings.service");
 
-async function makePrediction(
-  { topics, title },
-  { userId, fullName, avatarUrl }
-) {
+async function makePrediction({ topics, title }, { userId, name, avatarUrl }) {
+  console.log("makePrediction");
+  console.log(topics);
+  console.log(title);
+  console.log(userId);
+  console.log(name);
+  console.log(avatarUrl);
+  console.log("makePrediction");
+  console.log(" ");
+
   if (topics) {
     const newTopics = topics.filter(e => !e._id);
     await Promise.all(
@@ -26,7 +32,7 @@ async function makePrediction(
   const prediction = await PredictionModel.create({
     author: {
       id: userId,
-      fullName,
+      name,
       avatarUrl
     },
     title: title,
@@ -42,7 +48,7 @@ async function makePrediction(
       predictionId: prediction._id,
       sevenStarLikelihood: 7
     },
-    { userId, fullName, avatarUrl }
+    { userId, name, avatarUrl }
   );
 
   return { prediction };

@@ -2,20 +2,20 @@ const { RatingModel } = require("../../models/rating.model");
 
 async function ratePrediction(
   { predictionId, sevenStarLikelihood },
-  { userId, fullName, avatarUrl }
+  { id, name, avatarUrl }
 ) {
   const query = {
-    "author.id": userId,
+    "author.id": id,
     prediction: predictionId
   };
   if (sevenStarLikelihood) {
-    const rating = await RatingModel.findOneAndUpdate(
+    await RatingModel.findOneAndUpdate(
       query,
       {
         author: {
-          id: userId,
+          id: id,
           avatarUrl,
-          fullName
+          name
         },
         prediction: predictionId,
         sevenStarLikelihood: sevenStarLikelihood

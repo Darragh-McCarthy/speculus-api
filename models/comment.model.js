@@ -25,7 +25,7 @@ const commentSchema = mongoose.Schema(
         type: String,
         required: true
       },
-      fullName: {
+      name: {
         type: String,
         required: true
       }

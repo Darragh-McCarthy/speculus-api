@@ -4,16 +4,25 @@ const { NotificationModel } = require("../../models/notification.model");
 
 async function addComment(
   { predictionId, text, sevenStarLikelihood },
-  { userId, avatarUrl, fullName }
+  { id, avatarUrl, name }
 ) {
+  console.log("addComment");
+  console.log(predictionId);
+  console.log(text);
+  console.log(sevenStarLikelihood);
+  console.log(avatarUrl);
+  console.log(name);
+  console.log("addComment");
+  console.log(" ");
+
   const comment = await CommentModel.create({
     prediction: predictionId,
     text,
     sevenStarLikelihood: sevenStarLikelihood,
     author: {
-      id: userId,
+      id,
       avatarUrl: avatarUrl,
-      fullName: fullName
+      name
     }
   });
   const prediction = await PredictionModel.findByIdAndUpdate(
@@ -24,13 +33,13 @@ async function addComment(
     { useFindAndModify: false }
   );
 
-  if (prediction.author.id !== userId) {
+  if (prediction.author.id !== id) {
     await NotificationModel.create({
       userToNotify: prediction.author.id,
       notifyOfComment: {
         commentText: text,
-        commentAuthorFullName: fullName,
-        commentAuthorId: userId,
+        commentAuthorName: name,
+        commentAuthorId: id,
         commentAuthorAvatarUrl: avatarUrl,
         predictionTitle: prediction.title,
         predictionId: prediction._id
