@@ -9,7 +9,7 @@ async function ratePrediction(
     prediction: predictionId
   };
   if (sevenStarLikelihood) {
-    await RatingModel.findOneAndUpdate(
+    return RatingModel.findOneAndUpdate(
       query,
       {
         author: {

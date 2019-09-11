@@ -1,6 +1,22 @@
 {
   "data": [
     {
+      "title": "Polar bears will go extinct",
+      "topics": ["Animals", "Extinction"]
+    },
+    {
+      "title": "The Boring Company will cooperate with SpaceX to mine asteroids before 2040",
+      "topics": ["SpaceX", "The Boring Company", "Asteroid mining"]
+    },
+    {
+      "title": "Avatar 2 will earn 3 billion USD",
+      "topics": ["Avatar 2 (film)", "Box Office"]
+    },
+    {
+      "title": "Avatar 2 will set a new record for box office sales",
+      "topics": ["Avatar 2 (film)", "Box Office"]
+    },
+    {
       "title": "In 20 years, most elderly people will wear an exoskeleton to aid mobility",
       "topics": ["Elderly", "Exoskeleton"]
     },
@@ -9,11 +25,11 @@
       "topics": ["Crime", "Policing"]
     },
     {
-      "title": "In the future, we will need to rely on technology companies to verify the truthfullness of everything we witness in the media",
+      "title": "In the future, we will need to rely on technology companies to verify the truthfulness of everything we witness in the media",
       "topics": ["Deep fakes"]
     },
     {
-      "title": "In 2040 most of the products you purchase will have been 3D printed",
+      "title": "In 2040 most consumer products will be 3D printed",
       "topics": ["3D printing", "2040"]
     },
     {
@@ -89,7 +105,7 @@
       "topics": ["Extinction", "Humanity"]
     },
     {
-      "title": "There will be a female president in the United States by 2030",
+      "title": "There will be a female US president by 2030",
       "topics": ["United States President", "2030", "Female President"]
     },
     {

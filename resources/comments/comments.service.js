@@ -32,8 +32,8 @@ async function addComment(
     },
     { useFindAndModify: false }
   );
-
-  if (prediction.author.id !== id) {
+  console.log(prediction.author.id.equals(id), id, prediction.author.id);
+  if (!prediction.author.id.equals(id)) {
     await NotificationModel.create({
       userToNotify: prediction.author.id,
       notifyOfComment: {

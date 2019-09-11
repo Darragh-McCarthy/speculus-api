@@ -31,7 +31,11 @@ router.post("/", async (req, res) => {
       topics: req.body.topics,
       title: req.body.title
     },
-    res.locals.user
+    {
+      userId: res.locals.user.id,
+      name: res.locals.user.name,
+      avatarUrl: res.locals.user.avatarUrl
+    }
   );
   res.json({
     data: prediction

@@ -43,15 +43,15 @@ async function makePrediction({ topics, title }, { userId, name, avatarUrl }) {
       addedBy: userId
     }))
   });
-  await ratePrediction(
+  const rating = await ratePrediction(
     {
       predictionId: prediction._id,
       sevenStarLikelihood: 7
     },
-    { userId, name, avatarUrl }
+    { id: userId, name, avatarUrl }
   );
 
-  return { prediction };
+  return { prediction, rating };
 }
 
 module.exports = {
