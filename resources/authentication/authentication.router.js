@@ -31,9 +31,13 @@ const getAppAccessToken = async () => {
 
 function setAuthToken({ res, jwt, setToExpire }) {
   if (setToExpire) {
-    res.cookie("SpeculusAccessToken", jwt, { domain: "speculus.localhost" });
+    res.cookie("SpeculusAccessToken", jwt, {
+      domain: process.env.csrfCookieDomain
+    });
   } else {
-    res.cookie("SpeculusAccessToken", jwt, { domain: "speculus.localhost" });
+    res.cookie("SpeculusAccessToken", jwt, {
+      domain: process.env.csrfCookieDomain
+    });
   }
 }
 
