@@ -12,8 +12,8 @@ connect()
     https
       .createServer(
         {
-          key: fs.readFileSync("example.com+5-key.pem"),
-          cert: fs.readFileSync("example.com+5.pem")
+          key: fs.readFileSync("speculus.localhost+4-key.pem"),
+          cert: fs.readFileSync("speculus.localhost+4.pem")
         },
         app
       )

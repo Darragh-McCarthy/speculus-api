@@ -29,6 +29,19 @@ const getAppAccessToken = async () => {
   return getAppAccessTokenPromise;
 };
 
+function setAuthToken({ res, jwt, setToExpire }) {
+  if (setToExpire) {
+    res.cookie("SpeculusAccessToken", jwt, { domain: "speculus.localhost" });
+  } else {
+    res.cookie("SpeculusAccessToken", jwt, { domain: "speculus.localhost" });
+  }
+}
+
+router.get("/logout", (req, res) => {
+  setAuthToken({ res, jwt: undefined, setToExpire: true });
+  res.json({});
+});
+
 router.post("/login-with-facebook", csrfProtection, async (req, res) => {
   console.log("login req", req.body);
 
@@ -80,10 +93,9 @@ router.post("/login-with-facebook", csrfProtection, async (req, res) => {
     userClientSideObject: user.clientSideObject
   });
 
-  console.log(jwt);
+  setAuthToken({ res, jwt });
 
   res.json({
-    jwt,
     user: user.clientSideObject
   });
 });

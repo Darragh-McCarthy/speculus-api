@@ -29,7 +29,10 @@ app.use(
     origin: [
       "https://127.0.0.1:4200",
       "https://localhost:4200",
-      "https://speculus.app"
+      "https://speculus.app",
+      "https://speculus.com:4200",
+      "https://speculus.localhost:4200",
+      "https://www.speculus.com:4200"
     ],
     credentials: true,
     allowedHeaders:
@@ -46,8 +49,15 @@ const csrfProtection = csrf({ cookie: true });
 
 app.get("/csrf", csrfProtection, async (req, res) => {
   const token = req.csrfToken();
-  res.cookie("XSRF-TOKEN", token);
+  res.cookie("XSRF-TOKEN", token, {
+    domain: "speculus.localhost",
+    secure: true
+  });
   res.json({ token });
+});
+
+app.post("/csrf-test", csrfProtection, async (req, res) => {
+  res.json({ testing: true });
 });
 
 app.use("/authentication", authenticationRouter);
