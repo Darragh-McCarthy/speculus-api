@@ -39,6 +39,7 @@ app.use(
       "X-CSRF-Token, X-XSRF-TOKEN, origin, content-type, accept, authorization"
   })
 );
+
 app.use(helmet());
 
 // TODO
@@ -50,11 +51,12 @@ const csrfProtection = csrf({ cookie: true });
 app.get("/csrf", csrfProtection, async (req, res) => {
   const token = req.csrfToken();
   res.cookie("XSRF-TOKEN", token, {
-    domain: "speculus.localhost",
+    domain: process.env.csrfCookieDomain,
     secure: true
   });
-  res.json({ token });
+  res.json({});
 });
+console.log("process.env.csrfCookieDomain", process.env.csrfCookieDomain);
 
 app.post("/csrf-test", csrfProtection, async (req, res) => {
   res.json({ testing: true });

@@ -25,7 +25,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "https": "export NODE_EXTRA_CA_CERTS=\"$(mkcert -CAROOT)/rootCA.pem\"; node index-https.js"
+    "https": "export csrfCookieDomain=speculus.localhost;export NODE_EXTRA_CA_CERTS=\"$(mkcert -CAROOT)/rootCA.pem\"; node index-https.js"
   },
   "repository": {
     "type": "git",
