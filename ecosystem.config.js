@@ -12,7 +12,8 @@ module.exports = {
       max_memory_restart: "1G",
       env: {
         NODE_ENV: "development",
-        csrfCookieDomain: "speculus.app"
+        csrfCookieDomain: "speculus.app",
+        apiCookieDomain: "api.speculus.app"
       },
       env_production: {
         NODE_ENV: "production",

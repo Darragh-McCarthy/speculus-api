@@ -32,11 +32,12 @@ const getAppAccessToken = async () => {
 function setAuthToken({ res, jwt, setToExpire }) {
   if (setToExpire) {
     res.cookie("SpeculusAccessToken", jwt, {
-      domain: process.env.csrfCookieDomain
+      domain: process.env.apiCookieDomain,
+      expires: new Date()
     });
   } else {
     res.cookie("SpeculusAccessToken", jwt, {
-      domain: process.env.csrfCookieDomain
+      domain: process.env.apiCookieDomain
     });
   }
 }
@@ -96,6 +97,8 @@ router.post("/login-with-facebook", csrfProtection, async (req, res) => {
   const jwt = await authenticationService.sign({
     userClientSideObject: user.clientSideObject
   });
+
+  console.log("new", jwt);
 
   setAuthToken({ res, jwt });
 
