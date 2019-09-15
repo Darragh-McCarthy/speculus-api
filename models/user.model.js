@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const faker = require("faker");
 
 const userSchema = new mongoose.Schema(
   {
@@ -30,7 +31,8 @@ const userSchema = new mongoose.Schema(
 userSchema.virtual("clientSideObject").get(function() {
   return {
     _id: this._id,
-    avatarUrl: `https://graph.facebook.com/${this.facebook.id}/picture`,
+    // avatarUrl: `https://graph.facebook.com/${this.facebook.id}/picture`,
+    avatarUrl: faker.image.avatar(),
     facebook: {
       id: this.facebook.id,
       name: this.facebook.name

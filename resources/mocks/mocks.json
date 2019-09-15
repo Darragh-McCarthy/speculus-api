@@ -1,6 +1,54 @@
 {
   "data": [
     {
+      "title": "In 2040 fully-automated robotic hotels will be common",
+      "topics": ["2040", "Hotels", "Robotics"]
+    },
+    {
+      "title": "Genetic modifications will be regulated for use on human beings in 2030",
+      "topics": ["Designer babies", "Genetic modification"]
+    },
+    {
+      "title": "Full-sensory VR will be indistinguishable from real-life in 2070",
+      "topics": ["VR", "2070"]
+    },
+    {
+      "title": "Millions of people will live at sea in floating cities in 2070",
+      "topics": ["Floating cities", "2070"]
+    },
+    {
+      "title": "In 2035 most people will video record every moment of daily life, replayable on demand",
+      "topics": ["2035", "Video recording", "Life recording"]
+    },
+    {
+      "title": "In 2040 most cases of deafness is curable with sensory implants",
+      "topics": ["Implants", "Deafness", "2040"]
+    },
+    {
+      "title": "Brain-computer interfaces will be in mainstream use in 2040",
+      "topics": ["Brain-computer interface", "2040"]
+    },
+    {
+      "title": "In 2030 hospitals will have limitless supply of artificial blood",
+      "topics": ["Hospitals", "Healthcare"]
+    },
+    {
+      "title": "China will become the largest economy in 2028",
+      "topics": ["Economics", "China"]
+    },
+    {
+      "title": "The PS5 will be released in November 2020",
+      "topics": ["Playstation 5", "2020"]
+    },
+    {
+      "title": "In 2035 most vehicles on the road will be autonomous",
+      "topics": ["Autonomous cars", "2035"]
+    },
+    {
+      "title": "Tesla will become the biggest public transportation company in the world",
+      "topics": ["Tesla", "Public transportation", "Autonomous cars"]
+    },
+    {
       "title": "Polar bears will go extinct",
       "topics": ["Animals", "Extinction"]
     },
@@ -9,7 +57,7 @@
       "topics": ["SpaceX", "The Boring Company", "Asteroid mining"]
     },
     {
-      "title": "Avatar 2 will earn 3 billion USD",
+      "title": "Avatar 2 will earn over 3 billion USD",
       "topics": ["Avatar 2 (film)", "Box Office"]
     },
     {
