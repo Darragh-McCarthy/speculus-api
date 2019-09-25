@@ -65,17 +65,10 @@ app.use("/authentication", authenticationRouter);
 app.use("/mocks", mocksRouter);
 app.use("/", loggedInRouter);
 
-const connect = () => {
-  return mongoose.connect("mongodb://localhost:27017/myFirstDatabase", {
+const connect = () =>
+  mongoose.connect(process.env.mongoConnectionUri, {
     useNewUrlParser: true
   });
-  // return mongoose.connect(
-  //   "mongodb+srv://darragh:Wevb8X2oKr1G633W@cluster0-f8ars.mongodb.net/test?retryWrites=true&w=majority",
-  //   {
-  //     useNewUrlParser: true
-  //   }
-  // );
-};
 
 module.exports = {
   connect,

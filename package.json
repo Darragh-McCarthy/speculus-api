@@ -25,7 +25,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "https": "export csrfCookieDomain=speculus.localhost;export apiCookieDomain=speculus.localhost;export NODE_EXTRA_CA_CERTS=\"$(mkcert -CAROOT)/rootCA.pem\"; node index-https.js"
+    "https": "export mongoConnectionUri='mongodb://localhost:27017/myFirstDatabase'; export csrfCookieDomain=speculus.localhost; export apiCookieDomain=speculus.localhost;export NODE_EXTRA_CA_CERTS=\"$(mkcert -CAROOT)/rootCA.pem\"; node index-https.js"
   },
   "repository": {
     "type": "git",

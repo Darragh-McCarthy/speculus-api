@@ -13,7 +13,9 @@ module.exports = {
       env: {
         NODE_ENV: "development",
         csrfCookieDomain: "speculus.app",
-        apiCookieDomain: "api.speculus.app"
+        apiCookieDomain: "api.speculus.app",
+        mongoConnectionUri:
+          "mongodb+srv://darragh:Wevb8X2oKr1G633W@cluster0-f8ars.mongodb.net/test?retryWrites=true&w=majority"
       },
       env_production: {
         NODE_ENV: "production",
