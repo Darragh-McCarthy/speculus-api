@@ -1,57 +1,23 @@
 const { PredictionModel } = require("../../models/prediction.model");
-const { TopicModel } = require("../../models/topic.model");
-const { ratePrediction } = require("../ratings/ratings.service");
+const { upvotePrediction } = require("../upvotes/upvotes.service");
 
-async function makePrediction({ topics, title }, { userId, name, avatarUrl }) {
-  console.log("makePrediction");
-  console.log(topics);
-  console.log(title);
-  console.log(userId);
-  console.log(name);
-  console.log(avatarUrl);
-  console.log("makePrediction");
-  console.log(" ");
-
-  if (topics) {
-    const newTopics = topics.filter(e => !e._id);
-    await Promise.all(
-      newTopics.map(async e =>
-        TopicModel.updateOne(
-          {
-            title: e.title.trim()
-          },
-          {
-            title: e.title.trim(),
-            titleLowerCase: e.title.trim().toLowerCase()
-          },
-          { upsert: true }
-        )
-      )
-    );
-  }
+async function makePrediction(
+  { predictionThisRepliesTo, title },
+  { userId, name, avatarUrl }
+) {
   const prediction = await PredictionModel.create({
+    predictionThisRepliesTo,
     author: {
       id: userId,
       name,
       avatarUrl
     },
     title: title,
-    titleLowerCase: title.toLowerCase(),
-    topics: (topics || []).map(e => ({
-      title: e.title,
-      titleLowerCase: e.title.trim().toLowerCase(),
-      addedBy: userId
-    }))
+    titleLowerCase: title.toLowerCase()
   });
-  const rating = await ratePrediction(
-    {
-      predictionId: prediction._id,
-      sevenStarLikelihood: 7
-    },
-    { id: userId, name, avatarUrl }
-  );
 
-  return { prediction, rating };
+  await upvotePrediction({ predictionId: prediction._id, userId });
+  return { prediction };
 }
 
 module.exports = {

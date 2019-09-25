@@ -56,7 +56,6 @@ app.get("/csrf", csrfProtection, async (req, res) => {
   });
   res.json({});
 });
-console.log("process.env.csrfCookieDomain", process.env.csrfCookieDomain);
 
 app.post("/csrf-test", csrfProtection, async (req, res) => {
   res.json({ testing: true });
@@ -67,12 +66,15 @@ app.use("/mocks", mocksRouter);
 app.use("/", loggedInRouter);
 
 const connect = () => {
-  // const localUri = "mongodb://localhost:27017/myFirstDatabase";
-  const atlasUri =
-    "mongodb+srv://darragh:Wevb8X2oKr1G633W@cluster0-f8ars.mongodb.net/test?retryWrites=true&w=majority";
-  return mongoose.connect(atlasUri, {
+  return mongoose.connect("mongodb://localhost:27017/myFirstDatabase", {
     useNewUrlParser: true
   });
+  // return mongoose.connect(
+  //   "mongodb+srv://darragh:Wevb8X2oKr1G633W@cluster0-f8ars.mongodb.net/test?retryWrites=true&w=majority",
+  //   {
+  //     useNewUrlParser: true
+  //   }
+  // );
 };
 
 module.exports = {

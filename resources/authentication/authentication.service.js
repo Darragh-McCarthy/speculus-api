@@ -32,7 +32,7 @@ const audience = "http://speculus.app";
 // -1h  -3600000
 // -200  -200
 
-const expiresIn = "1d";
+const expiresIn = "7d";
 const signOptions = {
   // issuer,
   // subject,

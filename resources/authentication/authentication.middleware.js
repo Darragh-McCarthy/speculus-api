@@ -2,21 +2,17 @@ const authenticationService = require("./authentication.service");
 const mongoose = require("mongoose");
 
 const authMiddleware = async (req, res, next) => {
-  console.log(req.cookies);
   const token = req.cookies.SpeculusAccessToken;
   if (token && typeof token === "string") {
-    console.log("check", token);
     try {
       await authenticationService.verify(token);
       const decoded = await authenticationService.decode(token);
-      console.log("decoded", decoded);
 
       res.locals.user = {
         id: mongoose.Types.ObjectId(decoded.userClientSideObject._id),
         avatarUrl: decoded.userClientSideObject.avatarUrl,
         name: decoded.userClientSideObject.facebook.name
       };
-      console.log("res.locals", res.locals);
       next();
     } catch (e) {
       console.log("error", e);

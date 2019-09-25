@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { ratePrediction, getRatingLabel } = require("./ratings.service");
+const { upvotePrediction } = require("./upvotes.service");
 const { PredictionModel } = require("../../models/prediction.model");
 const { NotificationModel } = require("../../models/notification.model");
 const csrf = require("csurf");
@@ -10,7 +10,7 @@ const csrfProtection = csrf({ cookie: true });
 router.post("/", csrfProtection, async (req, res) => {
   console.log(res.locals);
 
-  await ratePrediction(
+  await upvotePrediction(
     {
       predictionId: req.body.predictionId,
       sevenStarLikelihood: req.body.sevenStarLikelihood
@@ -26,15 +26,14 @@ router.post("/", csrfProtection, async (req, res) => {
     !prediction.author.id.equals(res.locals.user.id) &&
     req.body.sevenStarLikelihood
   ) {
-    console.log(
-      typeof prediction.author.id,
-      typeof res.locals.user.id,
-      req.body.sevenStarLikelihood
-    );
+    // console.log(
+    //   typeof prediction.author.id,
+    //   typeof res.locals.user.id,
+    //   req.body.sevenStarLikelihood
+    // );
     await NotificationModel.create({
       userToNotify: prediction.author.id,
       notifyOfRating: {
-        ratingLabel: getRatingLabel(req.body.sevenStarLikelihood),
         ratingAuthorName: res.locals.user.name,
         ratingAuthorId: res.locals.user.id,
         ratingAuthorAvatarUrl: res.locals.user.avatarUrl,
@@ -48,5 +47,5 @@ router.post("/", csrfProtection, async (req, res) => {
 });
 
 module.exports = {
-  ratingsRouter: router
+  upvotesRouter: router
 };

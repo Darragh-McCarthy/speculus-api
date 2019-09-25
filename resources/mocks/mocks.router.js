@@ -3,7 +3,6 @@ const { PredictionModel } = require("../../models/prediction.model");
 const { makePrediction } = require("../predictions/predictions.service");
 const { UserModel } = require("../../models/user.model");
 const { TopicModel } = require("../../models/topic.model");
-const { RatingModel } = require("../../models/rating.model");
 const { CommentModel } = require("../../models/comment.model");
 const { addComment } = require("../comments/comments.service");
 const { NotificationModel } = require("../../models/notification.model");
@@ -14,7 +13,6 @@ const mocksRouter = new Router();
 
 const clearMockData = async () => {
   await CommentModel.deleteMany({});
-  await RatingModel.deleteMany({});
   await TopicModel.deleteMany({});
   await PredictionModel.deleteMany({});
   await UserModel.deleteMany({});

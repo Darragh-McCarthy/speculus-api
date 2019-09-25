@@ -22,7 +22,16 @@ const userSchema = new mongoose.Schema(
           type: String,
           required: true
         }
-      }
+      },
+      upvotes: [
+        {
+          predictionId: {
+            required: false,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Prediction"
+          }
+        }
+      ]
     }
   },
   { timestamps: true }

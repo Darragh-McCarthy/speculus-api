@@ -2,52 +2,38 @@ const mongoose = require("mongoose");
 
 const predictionSchema = mongoose.Schema(
   {
+    predictionThisRepliesTo: {
+      required: false,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Prediction"
+    },
     title: {
-      type: String,
       required: true,
+      type: String,
       maxlength: 300
     },
     titleLowerCase: {
-      type: String,
       required: true,
+      type: String,
       maxlength: 300
     },
     author: {
       id: {
+        required: true,
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true
+        ref: "User"
       },
       name: {
-        type: String,
         required: true,
+        type: String,
         maxlength: 300
       },
       avatarUrl: {
-        type: String,
         required: true,
+        type: String,
         maxlength: 1000
       }
     },
-    topics: [
-      {
-        title: {
-          type: String,
-          required: true,
-          maxlength: 300
-        },
-        titleLowerCase: {
-          type: String,
-          required: true,
-          maxlength: 300
-        },
-        addedBy: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-          required: true
-        }
-      }
-    ],
     commentsCount: { type: Number, default: 0 }
   },
   {

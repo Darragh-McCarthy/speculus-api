@@ -8,7 +8,7 @@ const { userAccountRouter } = require("./user-account/user-account.router");
 const {
   authMiddleware
 } = require("./authentication/authentication.middleware");
-const { ratingsRouter } = require("./ratings/ratings.router");
+const { upvotesRouter } = require("./upvotes/upvotes.router");
 const { commentsRouter } = require("./comments/comments.router");
 const { usersRouter } = require("./users/users.router");
 
@@ -19,7 +19,7 @@ module.exports = {
   authenticationRouter,
   userAccountRouter,
   authMiddleware,
-  ratingsRouter,
+  upvotesRouter,
   commentsRouter,
   usersRouter
 };

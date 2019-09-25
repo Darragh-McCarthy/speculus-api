@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const { UserModel } = require("../../models/user.model");
-const { getAllRatings } = require("../ratings/ratings.service");
 const { getNotifications } = require("../notifications/notifications.service");
 const router = new Router();
 
@@ -10,10 +9,9 @@ router.get("/", async (req, res) => {
     res.status(401).end();
     return;
   }
-  const ratings = await getAllRatings(res.locals.user.id);
   const notifications = await getNotifications({ userId: res.locals.user.id });
   res.json({
-    data: { user: user.clientSideObject, ratings, notifications }
+    data: { user: user.clientSideObject, notifications }
   });
 });
 

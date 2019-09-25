@@ -4,7 +4,7 @@ const {
   topicsRouter,
   userAccountRouter,
   authMiddleware,
-  ratingsRouter,
+  upvotesRouter,
   commentsRouter,
   usersRouter
 } = require("./resources");
@@ -14,7 +14,7 @@ loggedInRouter.use(authMiddleware);
 loggedInRouter.use("/predictions", predictionsRouter);
 loggedInRouter.use("/topics", topicsRouter);
 loggedInRouter.use("/user-account", userAccountRouter);
-loggedInRouter.use("/ratings", ratingsRouter);
+loggedInRouter.use("/upvotes", upvotesRouter);
 loggedInRouter.use("/comments", commentsRouter);
 loggedInRouter.use("/users", usersRouter);
 

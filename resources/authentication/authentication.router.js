@@ -38,7 +38,7 @@ function setAuthToken({ res, jwt, setToExpire }) {
   } else {
     res.cookie("SpeculusAccessToken", jwt, {
       domain: process.env.apiCookieDomain,
-      maxAge: 72 * 60 * 60 * 1000 // 3 days
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 3 days
     });
   }
 }
