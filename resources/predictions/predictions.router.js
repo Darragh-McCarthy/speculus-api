@@ -66,6 +66,13 @@ router.get("/details", async (req, res) => {
   });
 });
 
+router.delete("/", async (req, res) => {
+  await PredictionModel.findByIdAndDelete(req.query.predictionId);
+  setTimeout(() => {
+    res.json({});
+  }, 1000);
+});
+
 module.exports = {
   predictionsRouter: router
 };
