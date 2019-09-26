@@ -6,14 +6,14 @@ async function addComment(
   { predictionId, text, sevenStarLikelihood },
   { id, avatarUrl, name }
 ) {
-  console.log("addComment");
-  console.log(predictionId);
-  console.log(text);
-  console.log(sevenStarLikelihood);
-  console.log(avatarUrl);
-  console.log(name);
-  console.log("addComment");
-  console.log(" ");
+  // console.log("addComment");
+  // console.log(predictionId);
+  // console.log(text);
+  // console.log(sevenStarLikelihood);
+  // console.log(avatarUrl);
+  // console.log(name);
+  // console.log("addComment");
+  // console.log(" ");
 
   const comment = await CommentModel.create({
     prediction: predictionId,
@@ -32,7 +32,7 @@ async function addComment(
     },
     { useFindAndModify: false }
   );
-  console.log(prediction.author.id.equals(id), id, prediction.author.id);
+  // console.log(prediction.author.id.equals(id), id, prediction.author.id);
   if (!prediction.author.id.equals(id)) {
     await NotificationModel.create({
       userToNotify: prediction.author.id,

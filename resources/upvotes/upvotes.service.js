@@ -1,11 +1,21 @@
 const { UserModel } = require("../../models/user.model");
 
-async function upvotePrediction({ predictionId, userId }) {
-  await UserModel.findByIdAndUpdate(userId, {
-    $addToSet: predictionId
-  });
+async function togglePredictionUpvote({ predictionId, userId, upvoted }) {
+  if (upvoted) {
+    await UserModel.findByIdAndUpdate(userId, {
+      $addToSet: {
+        upvotes: predictionId
+      }
+    });
+  } else {
+    await UserModel.findByIdAndUpdate(userId, {
+      $pull: {
+        upvotes: predictionId
+      }
+    });
+  }
 }
 
 module.exports = {
-  upvotePrediction
+  togglePredictionUpvote
 };

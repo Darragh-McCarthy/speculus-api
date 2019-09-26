@@ -9,6 +9,7 @@ router.get("/", async (req, res) => {
     res.status(401).end();
     return;
   }
+  console.log(user);
   const notifications = await getNotifications({ userId: res.locals.user.id });
   res.json({
     data: { user: user.clientSideObject, notifications }

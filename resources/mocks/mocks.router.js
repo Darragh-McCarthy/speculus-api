@@ -131,10 +131,10 @@ mocksRouter.get("/populate", async (req, res) => {
     );
     for (let eachComment of comments) {
       const author = users[Math.floor(Math.random() * users.length)];
-      console.log("author.clientSideObject");
-      console.log(author.clientSideObject);
-      console.log("author.clientSideObject");
-      console.log(" ");
+      // console.log("author.clientSideObject");
+      // console.log(author.clientSideObject);
+      // console.log("author.clientSideObject");
+      // console.log(" ");
       await addComment(
         {
           predictionId: prediction._id,

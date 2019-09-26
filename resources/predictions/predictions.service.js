@@ -1,5 +1,5 @@
 const { PredictionModel } = require("../../models/prediction.model");
-const { upvotePrediction } = require("../upvotes/upvotes.service");
+const { togglePredictionUpvote } = require("../upvotes/upvotes.service");
 
 async function makePrediction(
   { predictionThisRepliesTo, title },
@@ -16,7 +16,11 @@ async function makePrediction(
     titleLowerCase: title.toLowerCase()
   });
 
-  await upvotePrediction({ predictionId: prediction._id, userId });
+  await togglePredictionUpvote({
+    predictionId: prediction._id,
+    userId,
+    upvoted: true
+  });
   return { prediction };
 }
 

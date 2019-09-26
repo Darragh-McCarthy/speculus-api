@@ -22,17 +22,14 @@ const userSchema = new mongoose.Schema(
           type: String,
           required: true
         }
-      },
-      upvotes: [
-        {
-          predictionId: {
-            required: false,
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Prediction"
-          }
-        }
-      ]
-    }
+      }
+    },
+    upvotes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Prediction"
+      }
+    ]
   },
   { timestamps: true }
 );
@@ -45,7 +42,8 @@ userSchema.virtual("clientSideObject").get(function() {
     facebook: {
       id: this.facebook.id,
       name: this.facebook.name
-    }
+    },
+    upvotes: this.upvotes
   };
 });
 

@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const faker = require("faker");
 const fetch = require("node-fetch");
 
 const { UserModel } = require("../../models/user.model");
@@ -49,7 +48,7 @@ router.get("/logout", (req, res) => {
 });
 
 router.post("/login-with-facebook", csrfProtection, async (req, res) => {
-  console.log("login req", req.body);
+  // console.log("login req", req.body);
 
   const appAccessToken = await getAppAccessToken();
   // const rawResponse = await fetch(
@@ -66,7 +65,7 @@ router.post("/login-with-facebook", csrfProtection, async (req, res) => {
   let user = await UserModel.findOne({
     "facebook.id": req.body.facebookUserId
   });
-  console.log("exists?", user);
+  // console.log("exists?", user);
 
   if (!user) {
     user = await UserModel.create({
@@ -81,7 +80,7 @@ router.post("/login-with-facebook", csrfProtection, async (req, res) => {
       userToNotify: user,
       notifyOfText: "Welcome to Speculus"
     });
-    console.log("create", user);
+    // console.log("create", user);
   } else {
     user = await UserModel.findByIdAndUpdate(user._id, {
       $set: {
@@ -91,15 +90,15 @@ router.post("/login-with-facebook", csrfProtection, async (req, res) => {
         "facebook.token": req.body.accessToken
       }
     });
-    console.log("update", user);
+    // console.log("update", user);
   }
-  console.log("response", response);
+  // console.log("response", response);
 
   const jwt = await authenticationService.sign({
     userClientSideObject: user.clientSideObject
   });
 
-  console.log("new", jwt);
+  // console.log("new", jwt);
 
   setAuthToken({ res, jwt });
 
