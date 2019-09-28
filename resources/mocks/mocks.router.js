@@ -59,6 +59,9 @@ mocksRouter.get("/populate", async (req, res) => {
   await clearMockData();
   const mockPredictions = JSON.parse(JSON.stringify(require("./mocks.json")))
     .data; //.slice(0, 3);
+  const mockTopicJson = JSON.parse(
+    JSON.stringify(require("./topic-mocks.json"))
+  ).data; //.slice(0, 3);
 
   const users = await Promise.all(
     mockFacebookUsers.map(e =>
@@ -84,35 +87,16 @@ mocksRouter.get("/populate", async (req, res) => {
 
   // create topics
   await Promise.all(
-    mockPredictions
-      .map(e => e.topics)
-      .reduce((a, b) => {
-        b.forEach(eachTopic => {
-          if (!a.find(e => e === eachTopic)) {
-            a.push(eachTopic);
-          }
-        });
-        return a;
-      }, [])
-      .map(e =>
-        TopicModel.create({
-          author: users[Math.floor(Math.random() * users.length)],
-          title: e.trim(),
-          titleLowerCase: e.trim().toLowerCase(),
-          pendingEditorialReview: false,
-          includeInDirectory: true
-        })
-      )
+    mockTopicJson.map(e =>
+      TopicModel.create({
+        author: users[Math.floor(Math.random() * users.length)],
+        title: e.trim(),
+        titleLowerCase: e.trim().toLowerCase(),
+        pendingEditorialReview: false,
+        includeInDirectory: true
+      })
+    )
   );
-
-  mockPredictions.forEach(eachPrediction => {
-    eachPrediction.topics = eachPrediction.topics.map(eachTopic => {
-      return {
-        addedBy: users[Math.floor(Math.random() * users.length)],
-        title: eachTopic
-      };
-    });
-  });
 
   for (let mockPrediction of mockPredictions) {
     const author = users[Math.floor(Math.random() * users.length)];
