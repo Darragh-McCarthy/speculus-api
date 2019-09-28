@@ -32,6 +32,12 @@ const userSchema = new mongoose.Schema(
     ],
     mockAvatarUrl: {
       type: String
+    },
+    permissions: {
+      includePredictionSubmissionsInPublicCollections: {
+        type: Boolean,
+        default: true
+      }
     }
   },
   { timestamps: true }

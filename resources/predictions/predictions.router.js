@@ -37,7 +37,9 @@ router.get("/", async (req, res) => {
       .sort("-createdAt")
       .exec();
   } else {
-    predictions = await PredictionModel.find({}).exec();
+    predictions = await PredictionModel.find({})
+      .sort("-createdAt")
+      .exec();
   }
 
   res.json({
