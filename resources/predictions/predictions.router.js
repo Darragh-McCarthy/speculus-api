@@ -5,37 +5,47 @@ const { CommentModel } = require("../../models/comment.model");
 
 const router = new Router();
 
-router.get("/", async (req, res) => {
-  let cursor;
-  if (req.query.id) {
-    cursor = PredictionModel.find({ _id: req.query.id });
-  } else if (req.query.authorId) {
-    cursor = PredictionModel.find({ "author.id": req.query.authorId });
-  } else if (req.query.topicTitle) {
-    cursor = PredictionModel.find({
-      titleLowerCase: req.query.topicTitle.toLowerCase()
-    });
-  } else {
-    cursor = PredictionModel.find({});
-  }
-  const predictions = await cursor.sort("-createdAt").exec();
-
-  res.json({
-    data: predictions
-  });
-});
-
-router.get("/search", async (req, res) => {
-  let predictions = await PredictionModel.find({
-    titleLowerCase: new RegExp(req.query.q, "i")
+async function searchPredictions({ q, pageNumber }) {
+  return await PredictionModel.find({
+    titleLowerCase: new RegExp(q, "i")
   })
     .sort("-createdAt")
     .exec();
+}
+
+router.get("/", async (req, res) => {
+  let predictions;
+  if (req.query.q) {
+    predictions = await searchPredictions({
+      q: req.query.q,
+      pageNumber: req.query.pageNumber
+    });
+  } else if (req.query.id) {
+    predictions = await PredictionModel.find({ _id: req.query.id })
+      .sort("-createdAt")
+      .exec();
+  } else if (req.query.authorId) {
+    predictions = await PredictionModel.find({
+      "author.id": req.query.authorId
+    })
+      .sort("-createdAt")
+      .exec();
+  } else if (req.query.topicTitle) {
+    predictions = await PredictionModel.find({
+      titleLowerCase: req.query.topicTitle.toLowerCase()
+    })
+      .sort("-createdAt")
+      .exec();
+  } else {
+    predictions = await PredictionModel.find({}).exec();
+  }
 
   res.json({
     data: predictions
   });
 });
+
+router.get("/search", async (req, res) => {});
 
 router.post("/", async (req, res) => {
   if (Math.random() > 0.5) {

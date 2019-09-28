@@ -67,7 +67,8 @@ mocksRouter.get("/populate", async (req, res) => {
           email: e.email,
           name: e.name,
           id: e.id
-        }
+        },
+        mockAvatarUrl: faker.image.avatar()
       })
     )
   );
@@ -77,7 +78,8 @@ mocksRouter.get("/populate", async (req, res) => {
       id: myFacebookUser.id,
       email: myFacebookUser.email,
       name: myFacebookUser.name
-    }
+    },
+    mockAvatarUrl: faker.image.avatar()
   });
 
   // create topics

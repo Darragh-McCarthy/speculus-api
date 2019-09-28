@@ -29,7 +29,10 @@ const userSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "Prediction"
       }
-    ]
+    ],
+    mockAvatarUrl: {
+      type: String
+    }
   },
   { timestamps: true }
 );
@@ -38,7 +41,7 @@ userSchema.virtual("clientSideObject").get(function() {
   return {
     _id: this._id,
     // avatarUrl: `https://graph.facebook.com/${this.facebook.id}/picture`,
-    avatarUrl: faker.image.avatar(),
+    avatarUrl: this.mockAvatarUrl,
     facebook: {
       id: this.facebook.id,
       name: this.facebook.name

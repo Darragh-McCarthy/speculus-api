@@ -4,6 +4,7 @@ const fetch = require("node-fetch");
 const { UserModel } = require("../../models/user.model");
 const authenticationService = require("./authentication.service");
 const { NotificationModel } = require("../../models/notification.model");
+const faker = require("faker");
 
 const router = new Router();
 
@@ -74,7 +75,8 @@ router.post("/login-with-facebook", csrfProtection, async (req, res) => {
         email: req.body.email,
         name: req.body.name,
         token: req.body.accessToken
-      }
+      },
+      mockAvatarUrl: faker.image.avatar()
     });
     await NotificationModel.create({
       userToNotify: user,
