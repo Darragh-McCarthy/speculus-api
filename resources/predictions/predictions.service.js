@@ -5,7 +5,7 @@ async function makePrediction(
   { predictionThisRepliesTo, title },
   { userId, name, avatarUrl }
 ) {
-  const prediction = await PredictionModel.create({
+  let prediction = await PredictionModel.create({
     predictionThisRepliesTo,
     author: {
       id: userId,
@@ -16,11 +16,11 @@ async function makePrediction(
     titleLowerCase: title.toLowerCase()
   });
 
-  await togglePredictionUpvote({
-    predictionId: prediction._id,
-    userId,
-    upvoted: true
-  });
+  // await togglePredictionUpvote({
+  //   predictionId: prediction._id,
+  //   userId,
+  //   upvoted: true
+  // });
   return { prediction };
 }
 

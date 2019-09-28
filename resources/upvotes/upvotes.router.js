@@ -8,8 +8,6 @@ const router = new Router();
 const csrfProtection = csrf({ cookie: true });
 
 router.post("/", csrfProtection, async (req, res) => {
-  // console.log(res.locals);
-
   await togglePredictionUpvote({
     predictionId: req.body.predictionId,
     userId: res.locals.user.id,

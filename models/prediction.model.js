@@ -34,7 +34,20 @@ const predictionSchema = mongoose.Schema(
         maxlength: 1000
       }
     },
-    commentsCount: { type: Number, default: 0 }
+    commentsCount: { type: Number, default: 0 },
+    userSubmittedReports: [
+      {
+        authorId: {
+          required: true,
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User"
+        },
+        reportDetails: {
+          type: String,
+          required: false
+        }
+      }
+    ]
   },
   {
     timestamps: true
