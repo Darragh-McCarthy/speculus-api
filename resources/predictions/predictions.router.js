@@ -67,6 +67,14 @@ router.post("/", async (req, res) => {
           avatarUrl: res.locals.user.avatarUrl
         }
       );
+      if (req.body.predictionThisRepliesTo) {
+        const x = await PredictionModel.findByIdAndUpdate(
+          req.body.predictionThisRepliesTo,
+          {
+            $inc: { predictionRepliesCount: 1 }
+          }
+        );
+      }
       setTimeout(() => {
         res.json({
           data: prediction
@@ -95,10 +103,19 @@ router.get("/details", async (req, res) => {
 });
 
 router.delete("/", async (req, res) => {
-  await PredictionModel.deleteOne({
+  const prediction = await PredictionModel.findOneAndDelete({
     _id: req.query.predictionId,
     "author.id": res.locals.user.id
   });
+
+  if (prediction.predictionThisRepliesTo) {
+    await PredictionModel.findByIdAndUpdate(
+      prediction.predictionThisRepliesTo,
+      {
+        $inc: { predictionRepliesCount: -1 }
+      }
+    );
+  }
   setTimeout(() => {
     res.json({});
   }, 1000);

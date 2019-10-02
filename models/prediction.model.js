@@ -35,6 +35,7 @@ const predictionSchema = mongoose.Schema(
       }
     },
     commentsCount: { type: Number, default: 0 },
+    predictionRepliesCount: { type: Number, default: 0 },
     userSubmittedReports: [
       {
         authorId: {
