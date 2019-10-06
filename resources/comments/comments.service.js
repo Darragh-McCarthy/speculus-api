@@ -3,53 +3,55 @@ const { CommentModel } = require("../../models/comment.model");
 const { NotificationModel } = require("../../models/notification.model");
 
 async function addComment(
-  { predictionId, text, sevenStarLikelihood },
+  { predictionId, commentId, text },
   { id, avatarUrl, name }
 ) {
-  // console.log("addComment");
-  // console.log(predictionId);
-  // console.log(text);
-  // console.log(sevenStarLikelihood);
-  // console.log(avatarUrl);
-  // console.log(name);
-  // console.log("addComment");
-  // console.log(" ");
-
+  console.log("commentId", commentId);
   const comment = await CommentModel.create({
-    prediction: predictionId,
+    predictionThisRepliesTo: predictionId,
+    commentThisRepliesTo: commentId,
     text,
-    sevenStarLikelihood: sevenStarLikelihood,
     author: {
       id,
-      avatarUrl: avatarUrl,
+      avatarUrl,
       name
     }
   });
-  const prediction = await PredictionModel.findByIdAndUpdate(
-    predictionId,
-    {
-      $inc: { commentsCount: 1 }
-    },
-    { useFindAndModify: false }
-  );
-  // console.log(prediction.author.id.equals(id), id, prediction.author.id);
-  if (!prediction.author.id.equals(id)) {
-    await NotificationModel.create({
-      userToNotify: prediction.author.id,
-      notifyOfComment: {
-        commentText: text,
-        commentAuthorName: name,
-        commentAuthorId: id,
-        commentAuthorAvatarUrl: avatarUrl,
-        predictionTitle: prediction.title,
-        predictionId: prediction._id
-      }
-    });
+  if (predictionId) {
+    const prediction = await PredictionModel.findByIdAndUpdate(
+      predictionId,
+      {
+        $inc: { commentsCount: 1 }
+      },
+      { useFindAndModify: false }
+    );
+    // console.log(prediction.author.id.equals(id), id, prediction.author.id);
+    if (!prediction.author.id.equals(id)) {
+      await NotificationModel.create({
+        userToNotify: prediction.author.id,
+        notifyOfComment: {
+          commentText: text,
+          commentAuthorName: name,
+          commentAuthorId: id,
+          commentAuthorAvatarUrl: avatarUrl,
+          predictionTitle: prediction.title,
+          predictionId: prediction._id
+        }
+      });
+    }
+  }
+  if (commentId) {
+    await CommentModel.findByIdAndUpdate(
+      commentId,
+      {
+        $inc: { commentsCount: 1 }
+      },
+      { useFindAndModify: false }
+    );
   }
 
   return {
-    comment,
-    prediction
+    comment
   };
 }
 

@@ -1,10 +1,15 @@
 const mongoose = require("mongoose");
 const commentSchema = mongoose.Schema(
   {
-    prediction: {
+    predictionThisRepliesTo: {
+      required: false,
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Prediction",
-      required: true
+      ref: "Prediction"
+    },
+    commentThisRepliesTo: {
+      required: false,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment"
     },
     text: {
       type: String,
@@ -25,7 +30,8 @@ const commentSchema = mongoose.Schema(
         type: String,
         required: true
       }
-    }
+    },
+    commentsCount: { type: Number, default: 0 }
   },
   {
     timestamps: true

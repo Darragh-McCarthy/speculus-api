@@ -91,7 +91,7 @@ router.get("/details", async (req, res) => {
     predictionThisRepliesTo: req.query.predictionId
   });
   const comments = await CommentModel.find({
-    prediction: req.query.predictionId
+    predictionThisRepliesTo: req.query.predictionId
   });
 
   res.json({

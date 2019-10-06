@@ -5,15 +5,20 @@ const { addComment } = require("./comments.service");
 const router = new Router();
 
 router.get("/", async (req, res) => {
-  const comments = await CommentModel.find({
-    prediction: req.query.predictionId
-  });
+  let comments;
+  if (req.query.predictionId) {
+    comments = await CommentModel.find({
+      predictionThisRepliesTo: req.query.predictionId
+    });
+  } else if (req.query.commentId) {
+    comments = await CommentModel.find({
+      commentThisRepliesTo: req.query.commentId
+    });
+  }
 
-  // setTimeout(() => {
   res.json({
     data: comments
   });
-  // }, 1000);
 });
 
 router.post("/", async (req, res) => {

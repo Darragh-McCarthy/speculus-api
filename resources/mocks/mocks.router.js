@@ -115,25 +115,25 @@ mocksRouter.get("/populate", async (req, res) => {
       0,
       Math.floor(Math.random() * mockComments.length)
     );
-    for (let eachComment of comments) {
-      const author = users[Math.floor(Math.random() * users.length)];
-      // console.log("author.clientSideObject");
-      // console.log(author.clientSideObject);
-      // console.log("author.clientSideObject");
-      // console.log(" ");
-      await addComment(
-        {
-          predictionId: prediction._id,
-          text: eachComment,
-          sevenStarLikelihood: Math.ceil(Math.random() * 7)
-        },
-        {
-          id: author._id,
-          avatarUrl: author.clientSideObject.avatarUrl,
-          name: author.facebook.name
-        }
-      );
-    }
+    // for (let eachComment of comments) {
+    //   const author = users[Math.floor(Math.random() * users.length)];
+    //   // console.log("author.clientSideObject");
+    //   // console.log(author.clientSideObject);
+    //   // console.log("author.clientSideObject");
+    //   // console.log(" ");
+    //   await addComment(
+    //     {
+    //       predictionId: prediction._id,
+    //       text: eachComment,
+    //       sevenStarLikelihood: Math.ceil(Math.random() * 7)
+    //     },
+    //     {
+    //       id: author._id,
+    //       avatarUrl: author.clientSideObject.avatarUrl,
+    //       name: author.facebook.name
+    //     }
+    //   );
+    // }
   }
 
   return res.json({});
