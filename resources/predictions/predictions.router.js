@@ -5,42 +5,48 @@ const { CommentModel } = require("../../models/comment.model");
 
 const router = new Router();
 
-async function searchPredictions({ q, pageNumber }) {
-  return await PredictionModel.find({
-    titleLowerCase: new RegExp(q, "i")
-  })
-    .sort("-createdAt")
-    .exec();
-}
-
 router.get("/", async (req, res) => {
-  let predictions;
+  let query = {};
   if (req.query.q) {
-    predictions = await searchPredictions({
-      q: req.query.q,
-      pageNumber: req.query.pageNumber
-    });
-  } else if (req.query.id) {
-    predictions = await PredictionModel.find({ _id: req.query.id })
-      .sort("-createdAt")
-      .exec();
-  } else if (req.query.authorId) {
-    predictions = await PredictionModel.find({
-      "author.id": req.query.authorId
-    })
-      .sort("-createdAt")
-      .exec();
-  } else if (req.query.topicTitle) {
-    predictions = await PredictionModel.find({
-      titleLowerCase: req.query.topicTitle.toLowerCase()
-    })
-      .sort("-createdAt")
-      .exec();
-  } else {
-    predictions = await PredictionModel.find({})
-      .sort("-createdAt")
-      .exec();
+    query.titleLowerCase = new RegExp(req.query.q, "i");
   }
+  if (req.query.id) {
+    query._id = req.query.id;
+  }
+  if (req.query.authorId) {
+    query["author.id"] = req.query.authorId;
+  }
+  if (req.query.topicTitle) {
+    query.titleLowerCase = req.query.topicTitle.toLowerCase();
+  }
+  const predictions = await PredictionModel.find(query)
+    .sort("-createdAt")
+    .limit(10)
+    .exec();
+
+  res.json({
+    data: predictions
+  });
+});
+
+router.get("/recent", async (req, res) => {
+  const limitMax = 100;
+  const limitDefault = 10;
+  const limit = Math.min(req.query.count || limitDefault, limitMax);
+  let query = {};
+  if (
+    req.query.lastPredictionId &&
+    req.query.lastPredictionId !== "undefined"
+  ) {
+    query = {
+      _id: { $lt: req.query.lastPredictionId }
+    };
+  }
+
+  const predictions = await PredictionModel.find(query)
+    .sort({ _id: -1 })
+    .limit(limit)
+    .exec();
 
   res.json({
     data: predictions

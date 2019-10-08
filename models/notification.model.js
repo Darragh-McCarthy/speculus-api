@@ -45,37 +45,6 @@ const notificationSchema = mongoose.Schema(
           ref: "Prediction"
         }
       }
-    },
-    notifyOfRating: {
-      required: false,
-      type: {
-        ratingLabel: {
-          required: true,
-          type: String
-        },
-        ratingAuthorName: {
-          required: true,
-          type: String
-        },
-        ratingAuthorAvatarUrl: {
-          required: true,
-          type: String
-        },
-        ratingAuthorId: {
-          required: true,
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User"
-        },
-        predictionTitle: {
-          required: true,
-          type: String
-        },
-        predictionId: {
-          required: true,
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Prediction"
-        }
-      }
     }
   },
   { timestamps: true }
