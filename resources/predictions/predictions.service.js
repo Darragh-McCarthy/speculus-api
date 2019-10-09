@@ -1,8 +1,7 @@
 const { PredictionModel } = require("../../models/prediction.model");
-const { togglePredictionUpvote } = require("../upvotes/upvotes.service");
 
 async function makePrediction(
-  { predictionThisRepliesTo, title },
+  { predictionThisRepliesTo, title, topicTitle },
   { userId, name, avatarUrl }
 ) {
   let prediction = await PredictionModel.create({
@@ -13,14 +12,10 @@ async function makePrediction(
       avatarUrl
     },
     title: title,
-    titleLowerCase: title.toLowerCase()
+    titleLowerCase: title.toLowerCase(),
+    topics:
+      typeof topicTitle === "string" && topicTitle.length ? [topicTitle] : []
   });
-
-  // await togglePredictionUpvote({
-  //   predictionId: prediction._id,
-  //   userId,
-  //   upvoted: true
-  // });
   return { prediction };
 }
 

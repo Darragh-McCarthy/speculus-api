@@ -7,6 +7,12 @@ const predictionSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Prediction"
     },
+    topics: [
+      {
+        type: String,
+        maxlength: 100
+      }
+    ],
     title: {
       required: true,
       type: String,

@@ -56,39 +56,32 @@ router.get("/recent", async (req, res) => {
 router.get("/search", async (req, res) => {});
 
 router.post("/", async (req, res) => {
-  if (Math.random() > 0.5) {
-    setTimeout(() => {
-      res.status(400).json({});
-    }, 1000);
-  } else {
-    try {
-      const { prediction } = await makePrediction(
+  try {
+    const { prediction } = await makePrediction(
+      {
+        predictionThisRepliesTo: req.body.predictionThisRepliesTo,
+        title: req.body.title,
+        topicTitle: req.body.topicTitle
+      },
+      {
+        userId: res.locals.user.id,
+        name: res.locals.user.name,
+        avatarUrl: res.locals.user.avatarUrl
+      }
+    );
+    if (req.body.predictionThisRepliesTo) {
+      await PredictionModel.findByIdAndUpdate(
+        req.body.predictionThisRepliesTo,
         {
-          predictionThisRepliesTo: req.body.predictionThisRepliesTo,
-          title: req.body.title
-        },
-        {
-          userId: res.locals.user.id,
-          name: res.locals.user.name,
-          avatarUrl: res.locals.user.avatarUrl
+          $inc: { predictionRepliesCount: 1 }
         }
       );
-      if (req.body.predictionThisRepliesTo) {
-        const x = await PredictionModel.findByIdAndUpdate(
-          req.body.predictionThisRepliesTo,
-          {
-            $inc: { predictionRepliesCount: 1 }
-          }
-        );
-      }
-      setTimeout(() => {
-        res.json({
-          data: prediction
-        });
-      }, 1000);
-    } catch (e) {
-      return res.status(400).json({});
     }
+    res.json({
+      data: prediction
+    });
+  } catch (e) {
+    return res.status(400).json({});
   }
 });
 
@@ -122,9 +115,7 @@ router.delete("/", async (req, res) => {
       }
     );
   }
-  setTimeout(() => {
-    res.json({});
-  }, 1000);
+  res.json({});
 });
 
 router.post("/report", async (req, res) => {

@@ -2,7 +2,7 @@ const { Router } = require("express");
 const fetch = require("node-fetch");
 
 const { UserModel } = require("../../models/user.model");
-const authenticationService = require("./authentication.service");
+const { isLoggedIn, sign } = require("./authentication.service");
 const { NotificationModel } = require("../../models/notification.model");
 const faker = require("faker");
 
@@ -42,6 +42,12 @@ function setAuthToken({ res, jwt, setToExpire }) {
     });
   }
 }
+
+router.get("/", async (req, res) => {
+  res.json({
+    loggedIn: await isLoggedIn(req)
+  });
+});
 
 router.get("/logout", (req, res) => {
   setAuthToken({ res, jwt: undefined, setToExpire: true });
@@ -96,7 +102,7 @@ router.post("/login-with-facebook", csrfProtection, async (req, res) => {
   }
   // console.log("response", response);
 
-  const jwt = await authenticationService.sign({
+  const jwt = await sign({
     userClientSideObject: user.clientSideObject
   });
 

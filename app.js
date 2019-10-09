@@ -6,7 +6,9 @@ const helmet = require("helmet");
 const { json, urlencoded } = require("body-parser");
 const app = express();
 const cookieParser = require("cookie-parser");
-
+const {
+  isLoggedIn
+} = require("./resources/authentication/authentication.service");
 const { mocksRouter, authenticationRouter } = require("./resources");
 
 const cuid = require("cuid");

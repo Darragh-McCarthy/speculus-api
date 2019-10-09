@@ -1,12 +1,12 @@
-const authenticationService = require("./authentication.service");
+const { verify, decode } = require("./authentication.service");
 const mongoose = require("mongoose");
 
 const authMiddleware = async (req, res, next) => {
   const token = req.cookies.SpeculusAccessToken;
   if (token && typeof token === "string") {
     try {
-      await authenticationService.verify(token);
-      const decoded = await authenticationService.decode(token);
+      await verify(token);
+      const decoded = await decode(token);
 
       res.locals.user = {
         id: mongoose.Types.ObjectId(decoded.userClientSideObject._id),

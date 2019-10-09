@@ -59,8 +59,22 @@ const verify = token =>
 const decode = token =>
   getPublicKey().then(key => jwt.decode(token, key, verifyOptions));
 
+const isLoggedIn = async req => {
+  const authCookie = req.cookies.SpeculusAccessToken;
+  if (authCookie && typeof authCookie === "string") {
+    try {
+      await verify(authCookie);
+      return true;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  return false;
+};
+
 module.exports = {
   sign,
   verify,
-  decode
+  decode,
+  isLoggedIn
 };
