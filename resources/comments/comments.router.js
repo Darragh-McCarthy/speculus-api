@@ -30,10 +30,15 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/", async (req, res) => {
-  const prediction = await CommentModel.findOneAndDelete({
-    _id: req.query.commentId,
-    "author.id": res.locals.user.id
-  });
+  const prediction = await CommentModel.findOneAndDelete(
+    {
+      _id: req.query.commentId,
+      "author.id": res.locals.user.id
+    },
+    {
+      useFindAndModify: false
+    }
+  );
 
   if (prediction.predictionThisRepliesTo) {
     await PredictionModel.findByIdAndUpdate(
